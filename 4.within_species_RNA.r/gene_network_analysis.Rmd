@@ -1,0 +1,208 @@
+---
+title: "Gene_Network"
+author: "Emily Phelps"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+source("scripts/general/packages.R")
+source("scripts/general/colours.R")
+source("scripts/expression_analysis/expression_plot_functions.R")
+
+```
+Looked at a lot of tutorials for this... 
+-https://fuzzyatelin.github.io/bioanth-stats/module-F21-Group1/module-F21-Group1.html#Network_Construction
+-https://alexslemonade.github.io/refinebio-examples/04-advanced-topics/network-analysis_rnaseq_01_wgcna.html#49_Explore_our_WGCNA_results
+
+#Do Gene Network Analysis
+Generated dds from the SIM_AX_RM25A_S9S2_SIM21 script
+```{r}
+dds_norm <- vst(dds)
+#sig.genes <- read_tsv("SvsA_significant_genes_rmnone.tsv") %>% dplyr::select(gene)
+#dds_norm %>% assay() %>% as.data.frame %>% filter(row.names(.) %in% as.vector(sig.genes$gene)) %>%rownames_to_column(var="sgene") %>% write_tsv(., "dds_norm_sim_ax_sig.tsv")
+dds_norm %>% assay() %>% as.data.frame %>% rownames_to_column(var="gene") %>% write_tsv(., "dds_norm_sim_ax25Nov.tsv")
+dds_norm <- read_tsv("dds_norm_sim_ax12Nov.tsv") %>% column_to_rownames(var="gene")
+```
+
+"To identify which genes are in the same modules, WGCNA first creates a weighted network to define which genes are near each other. The measure of “adjacency” it uses is based on the correlation matrix, but requires the definition of a threshold value, which in turn depends on a “power” parameter that defines the exponent used when transforming the correlation values. The choice of power parameter will affect the number of modules identified, and the WGCNA modules provides the pickSoftThreshold() function to help identify good choices for this parameter."
+
+I actually ran this on the cluster because of computation so see the graph input bellow.
+
+We should be maximizing the R2
+ value and minimizing mean connectivity.
+```{r}
+allowWGCNAThreads() 
+sft <- pickSoftThreshold(trans,
+  dataIsExpr = TRUE,
+  corFnc = cor,
+  networkType = "signed"
+)
+
+sft_df<- as.data.frame(sft$fitIndices) %>%
+  dplyr::mutate(model_fit = -sign(slope) * SFT.R.sq)
+
+ggplot(sft_df, aes(x = Power, y = model_fit, label = Power)) +
+  # Plot the points
+  geom_point() +
+  # We'll put the Power labels slightly above the data points
+  geom_text(nudge_y = 0.1) +
+  # We will plot what WGCNA recommends as an R^2 cutoff
+  geom_hline(yintercept = 0.80, col = "red") +
+  # Just in case our values are low, we want to make sure we can still see the 0.80 level
+  ylim(c(min(sft_df$model_fit), 1.05)) +
+  # We can add more sensible labels for our axis
+  xlab("Soft Threshold (power)") +
+  ylab("Scale Free Topology Model Fit, signed R^2") +
+  ggtitle("Scale independence") +
+  # This adds some nicer aesthetics to our plot
+  theme_classic()
+```
+
+![alt text](/Users/emilyphelps/Documents/T/Toxin_Project/Venom_Evolution_2024/soft_power.pdf)
+Picking the power of 20
+The blockwise uses a function called cor which is actually being called as stats::cor not WGCNA::cor (see https://www.biostars.org/p/305714/)
+```{r}
+#THis is the one you downloaded as july1.RDS
+bwnet <- blockwiseModules(trans,
+  maxBlockSize = 50000,
+  TOMType = "signed",
+  power =20, 
+  numericLabels = TRUE, 
+  randomSeed = 1234, 
+)
+```
+
+" The function blockwiseModules is designed to handle network construction and module detection in large data sets. The function first pre-clusters nodes into large clusters, referred to as blocks, using a variant of k-means clustering (function projectiveKMeans). Next, hierarchical clustering is applied to each block and modules are defined as branches of the resulting dendrogram. To synthesize the module detection results across blocks, an automatic module merging step (function mergeCloseModules) is performed that merges modules whose eigengenes are highly correlated." 
+
+Looking at expression modules
+```{r}
+bwnet <- readRDS("wgcna_results_Nov.RDS")
+module_eigengenes <- bwnet$MEs
+head(module_eigengenes)
+```
+Ensure our samples are still in the same order. 
+```{r}
+all.equal(sim.relationships$sample, rownames(module_eigengenes))
+```
+```{r}
+mergedColors = labels2colors(bwnet$colors)
+pdf("dendro.pdf", width=20, height=20)
+plotDendroAndColors(
+  bwnet$dendrograms[[1]],
+  mergedColors[bwnet$blockGenes[[1]]],
+  "Module colors",
+  dendroLabels = FALSE,
+  hang = 0.03,
+  addGuide = TRUE,
+  guideHang = 0.05 )
+dev.off()
+```
+
+Adjacency matrix- "A network is fully specified by its adjacency matrix a ij , a symmetric n × n matrix with entries in [0, 1] whose component a ij encodes the network connection strength between nodes i and j. To calculate the adjacency matrix, an intermediate quantity called the co-expression similarity s ij is first defined." Langfelder and Horvath 2008
+
+Which module are the venom candidates in?
+
+```{r}
+venom.candidates <- read_tsv("venom_candidates_sim_ax.tsv") 
+
+module_df<-as.data.frame(cbind(rownames(dds_norm), paste0("ME", bwnet$colors), labels2colors(bwnet$colors)))
+
+colnames(module_df)<-c("gene_id","module", "colors")
+
+total <- module_df %>% group_by(colors) %>% tally() %>% dplyr::rename(num.genes=n)
+
+module_df %>% filter(gene_id %in% as.vector(venom.candidates$gene_id)) %>% group_by(colors, module) %>% tally() %>% arrange(desc(n)) %>% left_join(., total, by="colors") %>% distinct() %>% mutate(percent=(n/num.genes)*100) %>% arrange(desc(n))
+
+sig.genes <- read_tsv("/Users/emilyphelps/Documents/T/Toxin_Project/Venom_Evolution_2024/data/SvsA_significant_genes.tsv") %>% dplyr::rename(gene_id=gene)
+
+module_df %>% filter(gene_id %in% as.vector(sig.genes$gene_id)) %>% group_by(colors) %>% tally() %>% arrange(desc(n)) %>% left_join(., total, by="colors") %>% mutate(percent=(n/num.genes)*100)  %>% arrange(desc(percent))
+
+module_df %>% filter(gene_id %in% as.vector(sig.genes$gene_id)) %>% filter(module == "ME1") %>% dplyr::select(gene_id) %>% write_tsv("all_housekeeping_candidates.tsv", col_names = TRUE)
+
+module_df %>% filter(gene_id %in% as.vector(venom.candidates$gene_id)) %>% filter(module == "ME1") %>% dplyr::select(gene_id) %>% write_tsv("module_venom_candidates.tsv")
+
+module_df %>% filter(module == "ME1") %>% dplyr::select(gene_id) %>% write_tsv("full_module_ME1_candidates.tsv")
+```
+Expression between modules - 21/12/2024- No modules are now significant- Why? If you filter to test only the modules that contain venom genes than these are significant. More modules are of interest. Could this be correct?
+```{r}
+
+des_mat <- model.matrix(~ sim.relationships$tissue)
+
+mod_candidates <- module_df %>% filter(gene_id %in% as.vector(venom.candidates$gene_id)) %>% group_by(colors, module) %>% tally() %>% arrange(desc(n)) %>% left_join(., total, by="colors") %>% distinct() %>% mutate(percent=(n/num.genes)*100) %>% arrange(desc(n))
+me <- module_eigengenes %>% select(mod_candidates$module)
+# lmFit() needs a transposed version of the matrix
+fit <- limma::lmFit(t(me), design = des_mat)
+
+# Apply empirical Bayes to smooth standard errors
+fit <- limma::eBayes(fit)
+stats_df <- limma::topTable(fit, number = ncol(me)) %>%
+  tibble::rownames_to_column("module") 
+
+module_list <- left_join(mod_candidates, stats_df) %>% filter(adj.P.Val <= 0.05)
+
+module_tissue <- module_eigengenes %>%
+  tibble::rownames_to_column("sample") %>%
+  # Here we are performing an inner join with a subset of metadata
+  dplyr::inner_join(sim.relationships %>%
+    dplyr::select(sample, tissue))
+
+```
+
+```{r}
+module_plot <- function(data, module){
+  mean.df <- module_tissue %>% group_by(tissue) %>% summarize(mean=mean(.data[[module]], na.rm = TRUE))
+  
+  plot <- ggplot(data,
+  aes(x = tissue, y = .data[[module]], color = tissue)) +
+  geom_beeswarm(size=5, alpha=0.5) +
+  geom_point(mean.df, mapping=aes(x=tissue, y=mean), colour=theme_cols[4], size=6, shape=18, alpha=0.8) +
+  labs(x="Tissue", y=paste0(module)) +
+  scale_x_discrete(labels=c("Venom Gland", "Skin")) +
+  scale_fill_manual(values=c(divergent[8], divergent[4])) +
+  scale_colour_manual(values=c(divergent[8], divergent[4])) +
+  theme(legend.position = "none",
+                panel.background = element_blank(),
+                axis.title= element_text(size= 10, color=theme_cols[4]), 
+                axis.line = element_line(linewidth = 0.5, 
+                                         colour = theme_cols[3]),
+                axis.ticks.x = element_blank(),
+                panel.grid.major.x = element_blank(),
+                panel.grid.minor.x = element_blank())
+  
+  return(plot)
+}
+plot.list <- list()
+for (i in seq(1, nrow(module_list))){
+  plot.list[[i]]<- module_plot(module_tissue, module_list$module[[i]]) +
+    ggtitle(paste0(module_list$n[[i]], " venom genes"))
+}
+
+pdf("Module_Expression.pdf")
+plot.list
+dev.off()
+```
+
+```{r}
+pdf("ME1_expression_MS.pdf", width=5, height=5)
+plot.list[[1]]
+dev.off()
+
+for (i in seq_along(module_list$module)) {
+  # Construct unique file names for each module
+  pdf_filename <- paste0("sup_module_express/additional_expression_", module_list$module[[i]], ".pdf")
+  
+  # Create the PDF
+  pdf(pdf_filename, width = 5, height = 5)
+  
+  # Plot the specific list element
+  plot(plot.list[[i]])
+  
+  # Close the device
+  dev.off()
+}
+```

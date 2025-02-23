@@ -1,0 +1,27 @@
+#!/bin/bash
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=chh20csu@uea.ac.uk
+#SBATCH -t 7-00:00:00
+#SBATCH --mem=200G
+#SBATCH -p compute-64-512
+#SBATCH --ntasks=1
+#SBATCH --nodes=1
+#SBATCH --cpus-per-task=30
+#SBATCH --job-name=annotate%j #Change Job Name
+#SBATCH -o annotate%j.out
+#SBATCH -e annotate%j.err
+
+PATH=~/miniconda3/bin/:$PATH
+source activate trinotate
+PATH=~/Trinotate-Trinotate-v4.0.2/:$PATH
+export TRINOTATE_DATA_DIR=/gpfs/home/chh20csu/trinotate_dir
+
+assembly_dir=/gpfs/home/chh20csu/Venom_Evolution_2024/transcriptomes/assembly/
+list=
+
+for i in `cat ${list}`; do
+  tar –xvzf ${assembly_dir}${i}
+  ./1.3.4.transcriptome_annotation_trinotate.sh -f ${assembly_dir}${i} -d trinotate_dir \
+  -o /gpfs/home/chh20csu/Venom_Evolution_2024/transcriptomes/
+done
+  

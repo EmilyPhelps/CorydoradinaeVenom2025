@@ -1,0 +1,19 @@
+#!/bin/bash
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=chh20csu@uea.ac.uk
+#SBATCH -t 7-00:00:00
+#SBATCH --mem=200G
+#SBATCH -p compute-64-512
+#SBATCH --ntasks=1
+#SBATCH --nodes=1
+#SBATCH --cpus-per-task=30
+#SBATCH --job-name=1.3.4.SIM_trinotate%j #Change Job Name
+#SBATCH -o 1.3.4.SIM_trinotate%j.out
+#SBATCH -e 1.3.4.SIM_trinotate%j.err
+
+PATH=~/miniconda3/bin/:$PATH
+source activate trinotate
+
+SAMPLE= ~/Venom_Evolution_2024/transcriptomes/annotations/SIM
+
+./1.3.4.transcriptome_annotation_trinotate.sh -f  ${SAMPLE} -d ~/trinotate_dir

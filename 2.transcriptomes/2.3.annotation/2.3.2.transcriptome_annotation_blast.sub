@@ -1,0 +1,18 @@
+#!/bin/bash
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=chh20csu@uea.ac.uk
+#SBATCH -t 7-00:00:00
+#SBATCH --mem=200G
+#SBATCH -p compute-64-512
+#SBATCH --ntasks=1
+#SBATCH --nodes=1
+#SBATCH --cpus-per-task=30
+#SBATCH --job-name=1.3.2.test%j #Change Job Name
+#SBATCH -o 1.3.2.TUK.blast%j.out
+#SBATCH -e 1.3.2.TUK.%j.err
+
+module load ncbi-blast
+
+module load
+i=TUK
+  ./1.3.2.transcriptome_annotation_blast.sh -f annotation/${i} -o ./ -d ~/trinotate_dir/

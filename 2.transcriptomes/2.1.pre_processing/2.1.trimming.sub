@@ -1,0 +1,24 @@
+#!/bin/bash
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=chh20csu@uea.ac.uk
+#SBATCH -t 7-00:00:00
+#SBATCH --mem=400G
+#SBATCH -p compute-64-512
+#SBATCH --ntasks=1
+#SBATCH --nodes=1
+#SBATCH --cpus-per-task=64
+#SBATCH --job-name=1.1.trim%j #Change Job Name
+#SBATCH -o 1.1.trim%j.out
+#SBATCH -e 1.1.trim%j.err
+
+#location
+
+cd /gpfs/home/chh20csu/Venom_Evolution_2024/
+
+#load modules and add to path
+
+#program
+LIST=X204SC23064724-Z01-F001.list
+OUTDIR=processing_raw/X204SC23064724
+
+./scripts/1.1.trimming.sh -s ${LIST} -o ${OUTDIR} 
