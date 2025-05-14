@@ -1,0 +1,10 @@
+ls: cannot access ~/scratch/Venom_Raw/NARC1_A2_1.fq.gz/NARC1_A2_1.fq.gz*_1.fq.gz: No such file or directory
+mkdir: cannot create directory ‘~/scratch/Venom_Raw/NARC1_A2_1.fq.gz/concat_raw/’: No such file or directory
+./2.transcriptomes/2.1.pre_processing/2.2.flash.sh: line 81: ~/scratch/Venom_Raw/NARC1_A2_1.fq.gz/concat_raw/NARC1_A2_1.fq.gz_concat_1.fq.gz: No such file or directory
+./2.transcriptomes/2.1.pre_processing/2.2.flash.sh: line 82: ~/scratch/Venom_Raw/NARC1_A2_1.fq.gz/concat_raw/NARC1_A2_1.fq.gz_concat_2.fq.gz: No such file or directory
+./2.transcriptomes/2.1.pre_processing/2.2.flash.sh: line 93: flash: command not found
+ls: cannot access ~/scratch/Venom_Raw/NARC1_A2_2.fq.gz/NARC1_A2_2.fq.gz*_1.fq.gz: No such file or directory
+mkdir: cannot create directory ‘~/scratch/Venom_Raw/NARC1_A2_2.fq.gz/concat_raw/’: No such file or directory
+./2.transcriptomes/2.1.pre_processing/2.2.flash.sh: line 81: ~/scratch/Venom_Raw/NARC1_A2_2.fq.gz/concat_raw/NARC1_A2_2.fq.gz_concat_1.fq.gz: No such file or directory
+./2.transcriptomes/2.1.pre_processing/2.2.flash.sh: line 82: ~/scratch/Venom_Raw/NARC1_A2_2.fq.gz/concat_raw/NARC1_A2_2.fq.gz_concat_2.fq.gz: No such file or directory
+./2.transcriptomes/2.1.pre_processing/2.2.flash.sh: line 93: flash: command not found
