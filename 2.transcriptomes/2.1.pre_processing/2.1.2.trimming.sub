@@ -7,9 +7,9 @@
 #SBATCH --ntasks=1
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=64
-#SBATCH --job-name=1.1.trim%j #Change Job Name
-#SBATCH -o 1.1.trim%j.out
-#SBATCH -e 1.1.trim%j.err
+#SBATCH --job-name=2.1.trim%j #Change Job Name
+#SBATCH -o 2.1.trim%j.out
+#SBATCH -e 2.1.trim%j.err
 
 #location
 
@@ -21,4 +21,4 @@ cd /gpfs/home/chh20csu/Venom_Evolution_2024/
 LIST=X204SC23064724-Z01-F001.list
 OUTDIR=processing_raw/X204SC23064724
 
-./scripts/1.1.trimming.sh -s ${LIST} -o ${OUTDIR} 
+./scripts/2.1.1.trimming.sh -s ${LIST} -o ${OUTDIR} 
