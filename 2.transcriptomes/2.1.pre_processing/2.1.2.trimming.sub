@@ -21,4 +21,4 @@ cd /gpfs/home/chh20csu/Venom_Evolution_2024/
 LIST=X204SC23064724-Z01-F001.list
 OUTDIR=processing_raw/X204SC23064724
 
-./scripts/2.1.1.trimming.sh -s ${LIST} -o ${OUTDIR} 
+./scripts/2.1.2.trimming.sh -s ${LIST} -o ${OUTDIR} 
