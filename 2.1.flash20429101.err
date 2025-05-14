@@ -1,0 +1,2 @@
+/tmp/slurmd/job20429101/slurm_script: line 22: syntax error near unexpected token `<<<'
+/tmp/slurmd/job20429101/slurm_script: line 22: `<<<<<<< HEAD:2.transcriptomes/2.1.pre_processing/2.2.flash.sub'
