@@ -61,3 +61,35 @@ PATH=flash/:$PATH
 
 ################################################## Program ####################################################
 
+if [ ! -d ${OUTDIR} ]; then
+   mkdir ${OUTDIR}
+fi
+
+if [ ! -d ${OUTDIR}/flashed ]; then
+   mkdir ${OUTDIR}/flashed
+fi
+
+for SAMPLE in `cat ${LIST}`; do
+   SAMPLE_NAME=$(echo $SAMPLE | awk -F"/" '{print $(NF)}')
+   
+   #Do a check to see if there is more than one lane being used
+   
+   lane_num=$(ls ${SAMPLE}/${SAMPLE_NAME}*_1.fq.gz | wc -l)
+  
+   if [ $lane_num -ne 1  ]; then
+      mkdir $SAMPLE/concat_raw/
+      cat ${SAMPLE}/${SAMPLE_NAME}*_1.fq.gz  > $SAMPLE/concat_raw/${SAMPLE_NAME}_concat_1.fq.gz 
+      cat ${SAMPLE}/${SAMPLE_NAME}*_2.fq.gz  > $SAMPLE/concat_raw/${SAMPLE_NAME}_concat_2.fq.gz 
+      
+      F1=$(echo $SAMPLE/concat_raw/${SAMPLE_NAME}_concat_1.fq.gz)
+      F2=$(echo $SAMPLE/concat_raw/${SAMPLE_NAME}_concat_2.fq.gz)
+   else 
+      F1=$(echo ${SAMPLE}/${SAMPLE_NAME}*_1.fq.gz)
+      F2=$(echo ${SAMPLE}/${SAMPLE_NAME}*_2.fq.gz)
+   fi
+
+   echo "flashing ${SAMPLE_NAME}"
+
+flash ${F1} ${F2} --d ${OUTDIR}/flashed
+   
+done
