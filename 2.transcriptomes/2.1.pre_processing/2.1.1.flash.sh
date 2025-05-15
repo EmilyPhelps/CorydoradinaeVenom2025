@@ -29,6 +29,7 @@ Help()
    echo options
    echo "h     Print this Help."
    echo "s     Sample list, with path"
+   echo "p     path to fq"
    echo "o     output directory"
    echo ""
 }
@@ -37,12 +38,13 @@ Help()
 
 # Add options in by adding another letter eg. :x, and then include a letter and some commands.
 # Semi colon placement mega important if you want to include your own input value.
-while getopts ":hs:o:" option; do
+while getopts ":hs:o:p:" option; do
    case ${option} in
       h) # display Help
          Help
          exit;;
        s) LIST=$OPTARG;;
+       p) path=$OPTARG;;
        o) OUTDIR=$OPTARG;;
       \?) # incorrect option
          echo "Error: Invalid option щ(ಥДಥщ)"
@@ -50,17 +52,14 @@ while getopts ":hs:o:" option; do
    esac
 done
 
-if [ -z ${LIST} ] || [ -z $OUTDIR} ]; then
+if [ -z ${LIST} ] || [ -z $OUTDIR} ] || [ -z ${path} ] ; then
    echo "Missing options"
    exit 1
 fi
 
-if [[ "${INDEX}" -ne 1 ]]; then
-   INDEX=0
-fi
 ###################################### Dependencies and Version. ###########################################
 
-PATH=flash/:$PATH
+PATH=~/flash/:$PATH
 
 ################################################## Program ####################################################
 
@@ -72,27 +71,24 @@ if [ ! -d ${OUTDIR}/flashed ]; then
    mkdir ${OUTDIR}/flashed
 fi
 
-for SAMPLE in `cat ${LIST}`; do
-   SAMPLE_NAME=$(echo $SAMPLE | awk -F"/" '{print $(NF)}')
-   
+for SAMPLE in `cat ${LIST}`; do 
    #Do a check to see if there is more than one lane being used
    
-   lane_num=$(ls ${SAMPLE}/${SAMPLE_NAME}*_1.fq.gz | wc -l)
+   lane_num=$(ls ${path}/${SAMPLE}*_1.fq.gz | wc -l)
   
    if [ $lane_num -ne 1  ]; then
-      mkdir $SAMPLE/concat_raw/
-      cat ${SAMPLE}/${SAMPLE_NAME}*_1.fq.gz  > $SAMPLE/concat_raw/${SAMPLE_NAME}_concat_1.fq.gz 
-      cat ${SAMPLE}/${SAMPLE_NAME}*_2.fq.gz  > $SAMPLE/concat_raw/${SAMPLE_NAME}_concat_2.fq.gz 
+      cat ${path}/${SAMPLE}*_1.fq.gz  > ${path}/${SAMPLE}_concat_1.fq.gz 
+      cat ${path}/${SAMPLE}*_2.fq.gz  > ${path}/${SAMPLE}_concat_2.fq.gz 
       
-      F1=$(echo $SAMPLE/concat_raw/${SAMPLE_NAME}_concat_1.fq.gz)
-      F2=$(echo $SAMPLE/concat_raw/${SAMPLE_NAME}_concat_2.fq.gz)
+      F1=$(echo ${path}/${SAMPLE}_concat_1.fq.gz)
+      F2=$(echo ${path}/${SAMPLE}_concat_2.fq.gz)
    else 
-      F1=$(echo ${SAMPLE}/${SAMPLE_NAME}*_1.fq.gz)
-      F2=$(echo ${SAMPLE}/${SAMPLE_NAME}*_2.fq.gz)
+      F1=$(echo ${path}/${SAMPLE}*_1.fq.gz)
+      F2=$(echo ${path}/${SAMPLE}*_2.fq.gz)
    fi
 
-   echo "flashing ${SAMPLE_NAME}"
+   echo "flashing ${SAMPLE}"
 
-flash ${F1} ${F2} --d ${OUTDIR}/flashed
+flash ${F1} ${F2} -d ${OUTDIR}/flashed  --output-prefix=${SAMPLE}
    
 done
