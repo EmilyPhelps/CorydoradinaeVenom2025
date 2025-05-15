@@ -21,4 +21,3 @@ cd /gpfs/home/chh20csu/CorydoradinaeVenom2025
 
 
 ./2.transcriptomes/2.1.pre_processing/2.1.1.flash.sh -s lists/sample.list -o output -p ~/scratch/Venom_Raw/
-
