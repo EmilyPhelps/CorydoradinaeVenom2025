@@ -18,7 +18,7 @@ cd /gpfs/home/chh20csu/Venom_Evolution_2024/
 #load modules and add to path
 
 #program
-LIST=X204SC23064724-Z01-F001.list
-OUTDIR=processing_raw/X204SC23064724
+LIST=NARC_ARC.list
+OUTDIR=NARC_ARC/
 
-./scripts/2.1.2.trimming.sh -s ${LIST} -o ${OUTDIR} 
+./2.transcriptomes/2.1.pre_processing/2.1.2.trimming.sh -s ${LIST} -o ${OUTDIR} 
