@@ -9,3 +9,10 @@ specific linux, but hopefully can be adapted to other projects.
 </p>
 
 If you are interested in hearing more about this work or have questions please email Emily Phelps at **e.c.phelps@exeter.ac.uk**.
+
+
+
+#Notes to me:
+- Have run flash on untrimmed- run on thhe trimmed seq to see if it is only combining reads based on adapters- run interleaved this time
+- Estimating raw read length- Estimate the trimmed length
+- Think about how to combine.
