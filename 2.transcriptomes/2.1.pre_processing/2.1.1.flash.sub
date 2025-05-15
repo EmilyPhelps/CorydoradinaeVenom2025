@@ -19,4 +19,4 @@ cd /gpfs/home/chh20csu/CorydoradinaeVenom2025
 
 #program
 
-./2.transcriptomes/2.1.pre_processing/2.2.flash.sh -s lists/test.list -o output
+./2.transcriptomes/2.1.pre_processing/2.2.flash.sh -s lists/test.list -o output - ~/scratch/Venom_Raw
