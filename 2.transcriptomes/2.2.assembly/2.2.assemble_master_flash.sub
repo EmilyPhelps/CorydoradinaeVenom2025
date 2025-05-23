@@ -21,7 +21,7 @@ cd /gpfs/home/chh20csu/CorydoradinaeVenom2025
 LIST=./lists/assembly.list
 OUTDIR=./assembly
 DIR=./output_trimmed/flashed
-MEM=200
+MEM=200G
 CPU=30
 
 ./2.transcriptomes/2.2.assembly/2.2.assemble_master_flash.sh -s ${LIST} -o ${OUTDIR} -d ${DIR} -m ${MEM} -t ${CPU}
