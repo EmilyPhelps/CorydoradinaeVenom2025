@@ -24,4 +24,4 @@ DIR=./output_trimmed/flashed
 MEM=200
 CPU=30
 
-./scripts/2.2.assemble_master_flash.sh -s ${LIST} -o ${OUTDIR} -d ${DIR} -m ${MEM} -t ${CPU}
+./2.transcriptomes/2.2.assembly/2.2.assemble_master_flash.sh -s ${LIST} -o ${OUTDIR} -d ${DIR} -m ${MEM} -t ${CPU}
