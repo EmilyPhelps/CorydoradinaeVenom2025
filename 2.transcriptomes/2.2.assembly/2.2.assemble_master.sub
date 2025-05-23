@@ -7,9 +7,9 @@
 #SBATCH --ntasks=1
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=30
-#SBATCH --job-name=1.3.assemble%j #Change Job Name
-#SBATCH -o 1.3.assemble%j.out
-#SBATCH -e 1.3.assemble%j.err
+#SBATCH --job-name=2.2.assemble%j #Change Job Name
+#SBATCH -o 2.2.assemble%j.out
+#SBATCH -e 2.2.assemble%j.err
 
 #location
 
@@ -24,4 +24,4 @@ DIR=./trimmed/trimmed/
 MEM=200
 CPU=30
 
-./scripts/1.3.assemble_master.sh -s ${LIST} -o ${OUTDIR} -d ${DIR} -m ${MEM} -t ${CPU}
+./scripts/2.2.assemble_master.sh -s ${LIST} -o ${OUTDIR} -d ${DIR} -m ${MEM} -t ${CPU}
