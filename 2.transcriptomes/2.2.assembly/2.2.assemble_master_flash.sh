@@ -59,8 +59,10 @@ if [ -z ${MEM} ] ; then
 fi
 ###################################### Dependencies and Version. ###########################################
 module load trinity/2.11.0
+module load jellyfish/2.3.0
 
 
+###################################### Program ##########################
 if [ ! -d ${OUTDIR} ]; then
    mkdir ${OUTDIR}
 fi
