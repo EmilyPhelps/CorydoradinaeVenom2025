@@ -13,8 +13,9 @@ Help()
    echo "h     Print this Help."
    echo "s     Species list - this will be just the prefix that is shared by all the reads from a species, e.g. "
    echo "      TUK is in the title for all tukano RNAseq"
-   echo "      Also all files should end in either _1.fastq or _2.fastq"
-   echo "d     directory with trimmed files"
+   echo " NB: This script uses flash transcripts which have been elongated. It concatinates all combined and"
+   echo " non-combined sequences into one file for assembly"
+   echo "d     directory with fastq files"
    echo "o     output directory"
    echo "m     memory requirement for trinity, must match the submission details"
    echo "t     cpus/threads for trinity, must match the submission details"
@@ -73,19 +74,16 @@ for sp in `cat $LIST`; do
    mkdir ${OUTDIR}/${sp}/concat_reads
    fi
    
-   cat ${DIR}/${sp}*_1.fastq > ${OUTDIR}/${sp}/concat_reads/${sp}_concat_1.fastq
-   F1=${OUTDIR}/${sp}/concat_reads/${sp}_concat_1.fastq
-   
-   cat ${DIR}/${sp}*_2.fastq > ${OUTDIR}/${sp}/concat_reads/${sp}_concat_2.fastq
-   F2=${OUTDIR}/${sp}/concat_reads/${sp}_concat_2.fastq
+   cat ${DIR}/${sp}*.fastq > ${OUTDIR}/${sp}/concat_reads/${sp}_concat.fastq
+
+   FQ= ${OUTDIR}/${sp}/concat_reads/${sp}_concat.fastq
    
    if [ ! -d ${OUTDIR}/${sp}/assembly ]; then
      mkdir ${OUTDIR}/${sp}/assembly
    fi
    
    Trinity --seqType fq \
-           --left $F1 \
-           --right $F2 \
+           --single $FQ \
            --CPU ${CPU} \
            --max_memory ${MEM} \
            --output ${OUTDIR}/${sp}/trinity_assembly
