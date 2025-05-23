@@ -77,8 +77,11 @@ for sp in `cat $LIST`; do
    fi
    
   #cat ${DIR}/${sp}*.fastq > ${OUTDIR}/${sp}/concat_reads/${sp}_concat.fastq
-
    FQ=${OUTDIR}/${sp}/concat_reads/${sp}_concat.fastq
+   R1=${OUTDIR}/${sp}/concat_reads/${sp}_R1.fastq
+   R2=${OUTDIR}/${sp}/concat_reads/${sp}_R2.fastq
+   
+   seqkit split2 -p 2 -f -1 ${R1} -2 ${R2} ${FQ}
    
    if [ ! -d ${OUTDIR}/${sp}/assembly ]; then
      mkdir ${OUTDIR}/${sp}/assembly
@@ -87,7 +90,8 @@ for sp in `cat $LIST`; do
    chmod 775 ${FQ}
 
    Trinity --seqType fq \
-           --single ${FQ} \
+           --left ${R1} \
+           --right ${R2} \
            --CPU ${CPU} \
            --max_memory ${MEM} \
            --output ${OUTDIR}/${sp}/trinity_assembly
