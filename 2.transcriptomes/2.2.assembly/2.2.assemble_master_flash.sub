@@ -18,9 +18,9 @@ cd /gpfs/home/chh20csu/CorydoradinaeVenom2025
 #load modules and add to path
 
 #program
-LIST=lists/assembly.list
+LIST=assembly.list
 OUTDIR=./assembly
-DIR=./trimmed/trimmed/
+DIR=./output_trimmed/flashed
 MEM=200
 CPU=30
 
