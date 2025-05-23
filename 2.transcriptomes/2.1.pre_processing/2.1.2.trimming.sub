@@ -19,6 +19,6 @@ cd /gpfs/home/chh20csu/CorydoradinaeVenom2025
 
 #program
 LIST=NARC_ARC.list
-OUTDIR=NARC_ARC/
+OUTDIR=NAR_ARC_out
 
 ./2.transcriptomes/2.1.pre_processing/2.1.2.trimming.sh -s ${LIST} -o ${OUTDIR} 

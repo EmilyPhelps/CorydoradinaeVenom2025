@@ -89,6 +89,6 @@ for SAMPLE in `cat ${LIST}`; do
 
    echo "flashing ${SAMPLE}"
 
-flash ${F1} ${F2} -d ${OUTDIR}/flashed  --output-prefix=${SAMPLE}
+flash ${F1} ${F2} -d ${OUTDIR}/flashed --interleaved-output --output-prefix=${SAMPLE}
    
 done
