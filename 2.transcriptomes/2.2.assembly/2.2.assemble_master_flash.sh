@@ -81,7 +81,9 @@ for sp in `cat $LIST`; do
    R1=${OUTDIR}/${sp}/concat_reads/${sp}_R1.fastq
    R2=${OUTDIR}/${sp}/concat_reads/${sp}_R2.fastq
    
-   seqkit split2 -p 2 -f -1 ${R1} -2 ${R2} ${FQ}
+   paste - - - - - - - - < ${FQ} \
+    | tee >(cut -f 1-4 | tr "\t" "\n" > ${R1}) \
+    | cut -f 5-8 | tr "\t" "\n" > ${R2}
    
    if [ ! -d ${OUTDIR}/${sp}/assembly ]; then
      mkdir ${OUTDIR}/${sp}/assembly
