@@ -61,6 +61,7 @@ fi
 module load trinity/2.11.0
 module load jellyfish/2.3.0
 
+PATH=~/miniconda3/bin/:$PATH
 
 ###################################### Program ##########################
 if [ ! -d ${OUTDIR} ]; then
@@ -81,9 +82,7 @@ for sp in `cat $LIST`; do
    R1=${OUTDIR}/${sp}/concat_reads/${sp}_R1.fastq
    R2=${OUTDIR}/${sp}/concat_reads/${sp}_R2.fastq
    
-  # paste - - - - - - - - < ${FQ} \
-  #  | tee >(cut -f 1-4 | tr "\t" "\n" > ${R1}) \
-  #  | cut -f 5-8 | tr "\t" "\n" > ${R2}
+   reformat.sh in=${FQ} out1=$R1 out2=$R2
    
    if [ ! -d ${OUTDIR}/${sp}/assembly ]; then
      mkdir ${OUTDIR}/${sp}/assembly
@@ -92,8 +91,8 @@ for sp in `cat $LIST`; do
    chmod 775 ${OUTDIR}/${sp}/concat_reads/*
 
    Trinity --seqType fq \
-           --right ${R1} \
-           --left ${R2} \
+           --left ${R1} \
+           --right ${R2} \
            --CPU ${CPU} \
            --max_memory ${MEM} \
            --output ${OUTDIR}/${sp}/trinity_assembly
