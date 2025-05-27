@@ -31,7 +31,7 @@ while getopts ":hs:d:o:m:t:" option; do
       h) # display Help
          Help
          exit;;
-       s) LIST=$OPTARG;;
+       s) species_list=$OPTARG;;
        d) DIR=$OPTARG;;
        o) OUTDIR=$OPTARG;;
        m) MEM=$OPTARG;;
@@ -42,7 +42,7 @@ while getopts ":hs:d:o:m:t:" option; do
    esac
 done
 
-if [ -z ${LIST} ] || [ -z $OUTDIR} ] || [ -z ${DIR} ] ; then
+if [ -z ${species_list} ] || [ -z $OUTDIR} ] || [ -z ${DIR} ] ; then
    echo "Missing options"
    exit 1
 fi
