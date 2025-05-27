@@ -78,35 +78,35 @@ for sp in `cat $species_list`; do
    fi
    
   
-  sample_list=$(find ${DIR} -type f -name "${sp}*" -exec basename {} \; \
-  | cut -c 1-5 | sort | uniq | sed 's/\.//g')
+  #sample_list=$(find ${DIR} -type f -name "${sp}*" -exec basename {} \; \
+  #| cut -c 1-5 | sort | uniq | sed 's/\.//g')
 
-  if [  -f ${OUTDIR}/${sp}_trin.txt ]; then
-     rm -rf ${OUTDIR}/${sp}_trin.txt
-  fi
+  #if [  -f ${OUTDIR}/${sp}_trin.txt ]; then
+  #   rm -rf ${OUTDIR}/${sp}_trin.txt
+  #fi
   
-  for sample in `echo ${sample_list}`; do 
+  #for sample in `echo ${sample_list}`; do 
      
-     cat ${DIR}/$sample*fastq > ${OUTDIR}/${sp}/int_concat/${sample}_concat.fastq
+  #   cat ${DIR}/$sample*fastq > ${OUTDIR}/${sp}/int_concat/${sample}_concat.fastq
      
-      if [ ! -d ${OUTDIR}/${sp}/paired_concat ]; then
-      mkdir ${OUTDIR}/${sp}/paired_concat
-      fi
+  #    if [ ! -d ${OUTDIR}/${sp}/paired_concat ]; then
+  #    mkdir ${OUTDIR}/${sp}/paired_concat
+  #    fi
       
-      reformat.sh in=${OUTDIR}/${sp}/int_concat/${sample}_concat.fastq \
-         out1=${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R1.fq \
-         out2=${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R2.fq
+  #    reformat.sh in=${OUTDIR}/${sp}/int_concat/${sample}_concat.fastq \
+  #       out1=${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R1.fq \
+  #       out2=${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R2.fq
 
-      echo -e "${sp}\t${sample}\t${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R1.fq\t${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R2.fq" >> \
-      ${OUTDIR}/${sp}_trin.txt
-   done 
+  #    echo -e "${sp}\t${sample}\t${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R1.fq\t${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R2.fq" >> \
+  #    ${OUTDIR}/${sp}_trin.txt
+  # done 
    
-   if [ ! -d ${OUTDIR}/${sp}/assembly ]; then
-     mkdir ${OUTDIR}/${sp}/assembly
-   fi
+  # if [ ! -d ${OUTDIR}/${sp}/assembly ]; then
+  #   mkdir ${OUTDIR}/${sp}/assembly
+  # fi
    
    Trinity --seqType fq \
-           --samples_file ${sp}_trin.txt \
+           --samples_file ${OUTDIR}/${sp}_trin.txt \
            --CPU ${CPU} \
            --max_memory ${MEM} \
            --output ${OUTDIR}/${sp}/trinity_assembly
