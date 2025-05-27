@@ -77,8 +77,9 @@ for sp in `cat $species_list`; do
    mkdir ${OUTDIR}/${sp}/int_concat
    fi
    
-  #cat ${DIR}/${sp}*.fastq > ${OUTDIR}/${sp}/concat_reads/${sp}_concat.fastq
-  sample_list=$(find ${DIR} -type f -name "${sp}*" -exec basename {} \; | cut -c 1-5 | sort| uniq)
+  
+  sample_list=$(find ${DIR} -type f -name "${sp}*" -exec basename {} \; \
+  | cut -c 1-5 | sort | uniq | sed 's/\.//g')
 
   if [  -f ${OUTDIR}/${sp}_trin.txt ]; then
      rm -rf ${OUTDIR}/${sp}_trin.txt
@@ -86,7 +87,7 @@ for sp in `cat $species_list`; do
   
   for sample in `echo ${sample_list}`; do 
      
-     cat $sample*fastq > ${OUTDIR}/${sp}/int_concat/${sample}_concat.fastq
+     cat ${DIR}/$sample*fastq > ${OUTDIR}/${sp}/int_concat/${sample}_concat.fastq
      
       if [ ! -d ${OUTDIR}/${sp}/paired_concat ]; then
       mkdir ${OUTDIR}/${sp}/paired_concat
