@@ -89,11 +89,11 @@ for sp in `cat $LIST`; do
      mkdir ${OUTDIR}/${sp}/assembly
    fi
    
-   chmod 775 ${FQ}
+   chmod 775 ${OUTDIR}/${sp}/concat_reads/*
 
    Trinity --seqType fq \
-           --left ${R1} \
-           --right ${R2} \
+           --right ${R1} \
+           --left ${R2} \
            --CPU ${CPU} \
            --max_memory ${MEM} \
            --output ${OUTDIR}/${sp}/trinity_assembly
