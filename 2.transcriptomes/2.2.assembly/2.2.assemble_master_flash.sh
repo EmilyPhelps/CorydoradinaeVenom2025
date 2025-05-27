@@ -78,8 +78,8 @@ for sp in `cat $species_list`; do
    fi
    
   
-  #sample_list=$(find ${DIR} -type f -name "${sp}*" -exec basename {} \; \
-  #| cut -c 1-5 | sort | uniq | sed 's/\.//g')
+  sample_list=$(find ${DIR} -type f -name "${sp}*" -exec basename {} \; \
+   | cut -c 1-5 | sort | uniq | sed 's/\.//g')
 
   if [  -f ${OUTDIR}/${sp}_trin.txt ]; then
      rm -rf ${OUTDIR}/${sp}_trin.txt
