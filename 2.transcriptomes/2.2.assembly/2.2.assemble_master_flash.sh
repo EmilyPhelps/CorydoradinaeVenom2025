@@ -68,31 +68,44 @@ if [ ! -d ${OUTDIR} ]; then
    mkdir ${OUTDIR}
 fi
 
-for sp in `cat $LIST`; do
+for sp in `cat $species_list`; do
    if [ ! -d ${OUTDIR}/${sp} ]; then
    mkdir ${OUTDIR}/${sp}
    fi
 
-   if [ ! -d ${OUTDIR}/${sp}/concat_reads ]; then
-   mkdir ${OUTDIR}/${sp}/concat_reads
+   if [ ! -d ${OUTDIR}/${sp}/int_concat ]; then
+   mkdir ${OUTDIR}/${sp}/int_concat
    fi
    
   #cat ${DIR}/${sp}*.fastq > ${OUTDIR}/${sp}/concat_reads/${sp}_concat.fastq
-   FQ=${OUTDIR}/${sp}/concat_reads/${sp}_concat.fastq
-   R1=${OUTDIR}/${sp}/concat_reads/${sp}_R1.fastq
-   R2=${OUTDIR}/${sp}/concat_reads/${sp}_R2.fastq
-   
-   reformat.sh in=${FQ} out1=$R1 out2=$R2
+  sample_list=$(find ${DIR} -type f -name "${sp}*" -exec basename {} \; | cut -c 1-5 | sort| uniq)
+
+  if [  -f ${OUTDIR}/${sp}_trin.txt ]; then
+     rm -rf ${OUTDIR}/${sp}_trin.txt
+  fi
+  
+  for sample in `echo ${sample_list}`; do 
+     
+     cat $sample*fastq > ${OUTDIR}/${sp}/int_concat/${sample}_concat.fastq
+     
+      if [ ! -d ${OUTDIR}/${sp}/paired_concat ]; then
+      mkdir ${OUTDIR}/${sp}/paired_concat
+      fi
+      
+      reformat.sh in=${OUTDIR}/${sp}/int_concat/${sample}_concat.fastq \
+         out1=${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R1.fq \
+         out2=${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R2.fq
+
+      echo "${sp}\t${sample}\t${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R1.fq\t${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R2.fq > \
+      ${OUTDIR}/${sp}_trin.txt
+   done 
    
    if [ ! -d ${OUTDIR}/${sp}/assembly ]; then
      mkdir ${OUTDIR}/${sp}/assembly
    fi
    
-   chmod 775 ${OUTDIR}/${sp}/concat_reads/*
-
    Trinity --seqType fq \
-           --left ${R1} \
-           --right ${R2} \
+           --samples_file ${sp}_trin.txt \
            --CPU ${CPU} \
            --max_memory ${MEM} \
            --output ${OUTDIR}/${sp}/trinity_assembly
