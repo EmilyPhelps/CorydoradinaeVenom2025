@@ -97,7 +97,7 @@ for sp in `cat $species_list`; do
          out1=${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R1.fq \
          out2=${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R2.fq
 
-      echo "${sp}\t${sample}\t${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R1.fq\t${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R2.fq" >> \
+      echo -e "${sp}\t${sample}\t${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R1.fq\t${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R2.fq" >> \
       ${OUTDIR}/${sp}_trin.txt
    done 
    
