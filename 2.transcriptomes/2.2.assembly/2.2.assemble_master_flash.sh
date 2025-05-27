@@ -88,17 +88,12 @@ for sp in `cat $species_list`; do
   for sample in `echo ${sample_list}`; do 
      
   #   cat ${DIR}/$sample*fastq > ${OUTDIR}/${sp}/int_concat/${sample}_concat.fastq
-     
-  #    if [ ! -d ${OUTDIR}/${sp}/paired_concat ]; then
-  #    mkdir ${OUTDIR}/${sp}/paired_concat
-  #    fi
-      
-  #    reformat.sh in=${OUTDIR}/${sp}/int_concat/${sample}_concat.fastq \
-  #       out1=${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R1.fq \
-  #       out2=${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R2.fq
+     R1=${DIR}/${sample}*_notCombined_1.fastq
+     R2=${DIR}/${sample}*_notCombined_2.fastq
+     single=${DIR}/${sample}*extendedFrags.fastq
 
-      echo -e "${sp}\t${sample}\t${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R2.fq\t${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R1.fq" >> \
-      ${OUTDIR}/${sp}_trin.txt
+      echo -e "${sp}\t${sample}\t${R1}\t${R2}" >> ${OUTDIR}/${sp}_trin.txt
+      echo -e "${sp}\t${sample}_combined\t${single}\t" >> ${OUTDIR}/${sp}_trin.txt
   done 
    
   # if [ ! -d ${OUTDIR}/${sp}/assembly ]; then
