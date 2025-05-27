@@ -81,11 +81,11 @@ for sp in `cat $species_list`; do
   #sample_list=$(find ${DIR} -type f -name "${sp}*" -exec basename {} \; \
   #| cut -c 1-5 | sort | uniq | sed 's/\.//g')
 
-  #if [  -f ${OUTDIR}/${sp}_trin.txt ]; then
-  #   rm -rf ${OUTDIR}/${sp}_trin.txt
-  #fi
+  if [  -f ${OUTDIR}/${sp}_trin.txt ]; then
+     rm -rf ${OUTDIR}/${sp}_trin.txt
+  fi
   
-  #for sample in `echo ${sample_list}`; do 
+  for sample in `echo ${sample_list}`; do 
      
   #   cat ${DIR}/$sample*fastq > ${OUTDIR}/${sp}/int_concat/${sample}_concat.fastq
      
@@ -97,9 +97,9 @@ for sp in `cat $species_list`; do
   #       out1=${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R1.fq \
   #       out2=${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R2.fq
 
-  #    echo -e "${sp}\t${sample}\t${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R1.fq\t${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R2.fq" >> \
-  #    ${OUTDIR}/${sp}_trin.txt
-  # done 
+      echo -e "${sp}\t${sample}\t${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R2.fq\t${OUTDIR}/${sp}/paired_concat/${sample}_flashed_R1.fq" >> \
+      ${OUTDIR}/${sp}_trin.txt
+  done 
    
   # if [ ! -d ${OUTDIR}/${sp}/assembly ]; then
   #   mkdir ${OUTDIR}/${sp}/assembly
