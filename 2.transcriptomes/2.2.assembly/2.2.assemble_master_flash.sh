@@ -88,7 +88,9 @@ for sp in `cat $species_list`; do
   for sample in `echo ${sample_list}`; do 
      
   #   cat ${DIR}/$sample*fastq > ${OUTDIR}/${sp}/int_concat/${sample}_concat.fastq
-     R1=$(ls ${DIR}/${sample}*notCombined_1.fastq)
+     cat ${DIR}/${sample}*notCombined_2.fastq ${DIR}/${sample}*extendedFrags.fastq\
+           > ${OUTDIR}/${sp}/int_concat/${sample}_concat.fastq
+     R1=$(ls ${OUTDIR}/${sp}/int_concat/${sample}_concat.fastq)
      R2=$(ls ${DIR}/${sample}*notCombined_2.fastq)
      single=$(ls ${DIR}/${sample}*extendedFrags.fastq)
 
