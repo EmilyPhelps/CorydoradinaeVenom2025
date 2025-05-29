@@ -88,9 +88,9 @@ for sp in `cat $species_list`; do
   for sample in `echo ${sample_list}`; do 
      
   #   cat ${DIR}/$sample*fastq > ${OUTDIR}/${sp}/int_concat/${sample}_concat.fastq
-     R1=${DIR}/${sample}*notCombined_1.fastq
-     R2=${DIR}/${sample}*notCombined_2.fastq
-     single=${DIR}/${sample}*extendedFrags.fastq
+     R1=$(ls ${DIR}/${sample}*notCombined_1.fastq)
+     R2=$(ls ${DIR}/${sample}*notCombined_2.fastq)
+     single=$(ls ${DIR}/${sample}*extendedFrags.fastq)
 
       echo -e "${sp}\t${sample}\t${R1}\t${R2}" >> ${OUTDIR}/${sp}_trin.txt
       echo -e "${sp}\t${sample}_combined\t${single}\t" >> ${OUTDIR}/${sp}_trin.txt
