@@ -92,10 +92,8 @@ for sp in `cat $species_list`; do
            > ${OUTDIR}/${sp}/int_concat/${sample}_concat.fastq
      R1=$(ls ${OUTDIR}/${sp}/int_concat/${sample}_concat.fastq)
      R2=$(ls ${DIR}/${sample}*notCombined_2.fastq)
-     single=$(ls ${DIR}/${sample}*extendedFrags.fastq)
-
+     
       echo -e "${sp}\t${sample}\t${R1}\t${R2}" >> ${OUTDIR}/${sp}_trin.txt
-      echo -e "${sp}\t${sample}_combined\t${single}\t" >> ${OUTDIR}/${sp}_trin.txt
   done 
    
   # if [ ! -d ${OUTDIR}/${sp}/assembly ]; then
