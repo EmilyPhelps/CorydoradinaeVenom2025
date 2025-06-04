@@ -9,8 +9,13 @@
 #SBATCH --cpus-per-task=30
 #SBATCH --job-name=chimerae%j #Change Job Name
 #SBATCH -o chimera%j.out
-#SBATCH -e chimerae%j.err
+#SBATCH -e chimera%j.err
 
 #location
-
 cd /gpfs/home/chh20csu/CorydoradinaeVenom2025
+
+./2.transcriptomes/2.2.assembly/chimeraTE.sh -f ~/scratch/trimmed/trimmed/ARC \
+    -t ~/scratch/transcriptomes/ARC/Trinity.fasta  \
+    -r ~/scratch/Lin9_All_deepTEEDTA_v1.2_renamed.fasta \
+    -o chimeraTE_output \
+    -c 30
