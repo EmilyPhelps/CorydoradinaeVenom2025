@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=chh20csu@uea.ac.uk
 #SBATCH -t 7-00:00:00
