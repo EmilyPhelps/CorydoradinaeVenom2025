@@ -49,10 +49,8 @@ if [ -z ${output} ] ; then
    output=output_${timestamp}
 fi
 
-###############################################  Options ################################################
 
-if [ -z ${MEM} ] ; then
-   echo "Missing memory requirement. Setting to default"
-   MEM=$(echo "$CPU * 3.7" | bc)
-fi
 ###################################### Dependencies and Version. ###########################################
+export PATH=~/miniconda3/bin/:$PATH
+export PATH=~/ChimeraTE/:$PATH
+
