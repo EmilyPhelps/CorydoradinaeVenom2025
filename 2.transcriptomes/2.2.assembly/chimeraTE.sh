@@ -12,12 +12,10 @@ Help()
    echo 
    echo options
    echo "h     Print this Help."
-   echo "f     The raw/cleaned fastq files used to create the transcriptome"
+   echo "f     The raw/cleaned fastq files used to create the transcriptome- prefix only"
    echo "t     The transcriptome"
    echo "r     The repeat library"
    echo "o     output directory"
-   echo "m     memory requirement for trinity, must match the submission details"
-   echo "t     cpus/threads for trinity, must match the submission details"
    echo ""
    echo ""
 }
@@ -25,32 +23,33 @@ Help()
 
 # Add options in by adding another letter eg. :x, and then include a letter) and some commands.
 # Semi colon placement mega important if you want to include your own input value.
-while getopts ":hs:d:o:m:t:" option; do
+while getopts ":hf:t:r:o:" option; do
    case ${option} in
       h) # display Help
          Help
          exit;;
-       s) LIST=$OPTARG;;
-       d) DIR=$OPTARG;;
-       o) OUTDIR=$OPTARG;;
-       m) MEM=$OPTARG;;
-       t) CPU=$OPTARG;;
+       f) fq=${OPTARG};;
+       t) trans=${OPTARG};;
+       r) repeatlib=${OPTARG};;
+       o) output=${OPTARG};;
       \?) # incorrect option
          echo "Error: Invalid option щ(ಥДಥщ)"
          exit;;
    esac
 done
 
-if [ -z ${LIST} ] || [ -z $OUTDIR} ] || [ -z ${DIR} ] ; then
+if [ -z ${fq} ] || [ -z ${trans} ] || [ -z ${repeatlib} ] ; then
    echo "Missing options"
    exit 1
 fi
 
-if [ -z ${CPU} ] ; then
-   echo "Missing memory requirement. Setting to default"
-   CPU=1
-  
+if [ -z ${output} ] ; then
+   echo "default output"
+   timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
+   output=output_${timestamp}
 fi
+
+###############################################  Options ################################################
 
 if [ -z ${MEM} ] ; then
    echo "Missing memory requirement. Setting to default"
