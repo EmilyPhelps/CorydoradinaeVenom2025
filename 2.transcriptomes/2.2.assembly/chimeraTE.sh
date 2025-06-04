@@ -12,7 +12,7 @@ Help()
    echo 
    echo options
    echo "h     Print this Help."
-   echo "f     The raw/cleaned fastq files used to create the transcriptome- prefix only"
+   echo "f     Path to raw/ cleaned fq files with prefix"
    echo "t     The transcriptome"
    echo "r     The repeat library"
    echo "o     output directory"
@@ -51,6 +51,47 @@ fi
 
 
 ###################################### Dependencies and Version. ###########################################
-export PATH=~/miniconda3/bin/:$PATH
-export PATH=~/ChimeraTE/:$PATH
+PATH=~/miniconda3/bin/:$PATH
+PATH=~/ChimeraTE/:$PATH
+
+if [ !-d ${output} ]; then
+   mkdir ${output}
+fi
+
+#Going to edit the transcriptomes so they are appropriate for chimeraTE. 
+#If the output dir exists then skips
+if [ ! -d ${output}/renamed ]; then
+   mkdir ${output}/trans_renamed
+
+   awk 'BEGIN{FS=" "} 
+   /^>/ {
+     split($1, idparts, "_");
+     gene = "TRINITY." idparts[2] "." idparts[3] "." idparts[4];
+     iso = gene "." idparts[5];
+     print ">" gene "_" iso;
+     next
+   }
+   {print}' ${trans} > ${output}/trans_renamed/${trans}_renamed.fasta
+fi
+
+id=$(echo $fq | awk -F"/" '{print $NF}')
+
+if [ ! -f ${output}/${id}_fq.tsv ]; then
+   dir=$(echo ${fq} | sed "s/${id}//g")
+
+   mapfile -t f1 < <(find "${dir}" -name "${id}*_1.fastq.gz" | sort)
+   mapfile -t f2 < <(find "${dir}" -name "${id}*_2.fastq.gz" | sort)
+   
+   for ((i=0; i<${#f1[@]}; i++)); do
+     rep_num=$((i+1))
+     echo -e "${f1[i]}\t${f2[i]}\trep${rep_num}" >> ${output}/${id}_fq.tsv
+   done
+fi
+
+python3 chimTE_mode2.py --input ${output}/${id}_fq.tsv \
+         --project ${id}_chimeraTE \
+         --te ${repeatlib} \
+         --transcripts ${output}/trans_renamed/${trans}_renamed.fasta \
+         --strand rf-stranded
+
 
