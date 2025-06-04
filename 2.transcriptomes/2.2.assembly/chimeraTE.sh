@@ -8,7 +8,7 @@ Help()
    echo "This is written for the HPC (UEA ADA 2025)"
    echo "Change the dependencies if need be."
    
-   echo "Syntax: 1.1.assemble_master.sh -s samples "
+   echo "Syntax: chimeraTE.sh [options]"
    echo 
    echo options
    echo "h     Print this Help."
