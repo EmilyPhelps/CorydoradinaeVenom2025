@@ -16,6 +16,7 @@ Help()
    echo "t     The transcriptome"
    echo "r     The repeat library"
    echo "o     output directory"
+   echo "c     cpus/threads"
    echo ""
    echo ""
 }
@@ -23,7 +24,7 @@ Help()
 
 # Add options in by adding another letter eg. :x, and then include a letter) and some commands.
 # Semi colon placement mega important if you want to include your own input value.
-while getopts ":hf:t:r:o:" option; do
+while getopts ":hf:t:r:o:c:" option; do
    case ${option} in
       h) # display Help
          Help
@@ -32,6 +33,7 @@ while getopts ":hf:t:r:o:" option; do
        t) trans=${OPTARG};;
        r) repeatlib=${OPTARG};;
        o) output=${OPTARG};;
+       c) cpus=${OPTARG};;
       \?) # incorrect option
          echo "Error: Invalid option щ(ಥДಥщ)"
          exit;;
@@ -49,6 +51,11 @@ if [ -z ${output} ] ; then
    output=output_${timestamp}
 fi
 
+if [ -z ${cpus} ] ; then
+   echo "Missing memory requirement. Setting to default"
+   cpus=1
+  
+fi
 
 ###################################### Dependencies and Version. ###########################################
 PATH=~/miniconda3/bin/:$PATH
@@ -92,6 +99,7 @@ python3 chimTE_mode2.py --input ${output}/${id}_fq.tsv \
          --project ${id}_chimeraTE \
          --te ${repeatlib} \
          --transcripts ${output}/trans_renamed/${trans}_renamed.fasta \
-         --strand rf-stranded
+         --strand rf-stranded \
+         --threads 30
 
 
