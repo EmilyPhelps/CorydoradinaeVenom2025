@@ -61,7 +61,7 @@ fi
 PATH=~/miniconda3/bin/:$PATH
 PATH=~/ChimeraTE/:$PATH
 
-if [ !-d ${output} ]; then
+if [ ! -d ${output} ]; then
    mkdir ${output}
 fi
 
