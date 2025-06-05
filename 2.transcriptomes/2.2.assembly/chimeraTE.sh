@@ -65,6 +65,7 @@ if [ ! -d ${output} ]; then
    mkdir ${output}
 fi
 
+id=$(echo $fq | awk -F"/" '{print $NF}')
 #Going to edit the transcriptomes so they are appropriate for chimeraTE. 
 #If the output dir exists then skips
 if [ ! -d ${output}/renamed ]; then
@@ -78,10 +79,9 @@ if [ ! -d ${output}/renamed ]; then
      print ">" gene "_" iso;
      next
    }
-   {print}' ${trans} > ${output}/trans_renamed/${trans}_renamed.fasta
+   {print}' ${trans} > ${output}/trans_renamed/${id}_renamed.fasta
 fi
 
-id=$(echo $fq | awk -F"/" '{print $NF}')
 
 if [ ! -f ${output}/${id}_fq.tsv ]; then
    dir=$(echo ${fq} | sed "s/${id}//g")
@@ -98,7 +98,7 @@ fi
 python3 chimTE_mode2.py --input ${output}/${id}_fq.tsv \
          --project ${id}_chimeraTE \
          --te ${repeatlib} \
-         --transcripts ${output}/trans_renamed/${trans}_renamed.fasta \
+         --transcripts ${output}/trans_renamed/${id}_renamed.fasta \
          --strand rf-stranded \
          --threads 30
 
