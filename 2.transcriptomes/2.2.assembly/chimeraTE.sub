@@ -12,13 +12,15 @@
 #SBATCH -e chimera%j.err
 
 #location
-cd /gpfs/home/chh20csu/CorydoradinaeVenom2025
+PATH=~/miniconda3/bin/:$PATH
+source activate chimeraTE
 
+cd /gpfs/home/chh20csu/ChimeraTE
 ./2.transcriptomes/2.2.assembly/chimeraTE.sh -f ~/scratch/trimmed/trimmed/ARC \
     -t ~/scratch/transcriptomes/ARC/Trinity.fasta  \
     -r ~/scratch/Lin9_All_deepTEEDTA_v1.2_renamed.fasta \
     -o chimeraTE_output \
     -c 30
 
-mv projects/chimeraTE_output ./
+
 
