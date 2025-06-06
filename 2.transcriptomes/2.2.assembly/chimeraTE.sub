@@ -16,9 +16,9 @@ PATH=~/miniconda3/bin/:$PATH
 source activate chimeraTE
 
 cd /gpfs/home/chh20csu/ChimeraTE
-/gpfs/home/chh20csu/CorydoradinaeVenom2025/2.transcriptomes/2.2.assembly/chimeraTE.sh -f ~/scratch/trimmed/trimmed/ARC \
-    -t ~/scratch/transcriptomes/ARC/Trinity.fasta  \
-    -r ~/scratch/Lin9_All_deepTEEDTA_v1.2_renamed.fasta \
+/gpfs/home/chh20csu/CorydoradinaeVenom2025/2.transcriptomes/2.2.assembly/chimeraTE.sh -f ~/scratch/trimmed/SIM \
+    -t ~/scratch/transcriptomes/SIM/Trinity.fasta  \
+    -r Lin1C115wtgdb_EDTADeepTE_cleanLib_V1.1_renamed.fasta \
     -o /gpfs/home/chh20csu/CorydoradinaeVenom2025/chimeraTE_input \
     -c 30
 
