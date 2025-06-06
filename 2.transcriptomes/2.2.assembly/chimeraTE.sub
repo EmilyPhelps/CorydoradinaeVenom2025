@@ -17,5 +17,5 @@ cd /gpfs/home/chh20csu/CorydoradinaeVenom2025
 ./2.transcriptomes/2.2.assembly/chimeraTE.sh -f ~/scratch/trimmed/trimmed/ARC \
     -t ~/scratch/transcriptomes/ARC/Trinity.fasta  \
     -r ~/scratch/Lin9_All_deepTEEDTA_v1.2_renamed.fasta \
-    -o chimeraTE_output \
+    -o projects/chimeraTE_output \
     -c 30
