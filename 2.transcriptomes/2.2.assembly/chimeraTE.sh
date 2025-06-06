@@ -59,7 +59,6 @@ fi
 
 ###################################### Dependencies and Version. ###########################################
 PATH=~/miniconda3/bin/:$PATH
-chimeraTE=~/ChimeraTE/chimTE_mode2.py
 
 if [ ! -d ${output} ]; then
    mkdir ${output}
@@ -98,8 +97,8 @@ fi
 
 mkdir ${output}/${id}_chimeraTE 
 
-python3 ${chimeraTE} --input ${output}/${id}_fq.tsv \
-         --project ${output}/${id}_chimeraTE \
+python3 ~/ChimeraTE/chimTE_mode2.py --input ${output}/${id}_fq.tsv \
+         --project ${id}_chimeraTE \
          --te ${repeatlib} \
          --transcripts ${output}/trans_renamed/${id}_renamed.fasta \
          --strand rf-stranded \
