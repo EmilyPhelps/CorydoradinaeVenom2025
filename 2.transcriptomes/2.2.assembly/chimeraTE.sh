@@ -68,7 +68,8 @@ fi
 id=$(echo $fq | awk -F"/" '{print $NF}')
 #Going to edit the transcriptomes so they are appropriate for chimeraTE. 
 #If the output dir exists then skips
-if [ ! -d ${output}/renamed ]; then
+
+if [ ! -d ${output}/trans_renamed ]; then
    mkdir ${output}/trans_renamed
 
    awk 'BEGIN{FS=" "} 
@@ -95,8 +96,10 @@ if [ ! -f ${output}/${id}_fq.tsv ]; then
    done
 fi
 
+mkdir ${output}/${id}_chimeraTE 
+
 python3 ${chimeraTE} --input ${output}/${id}_fq.tsv \
-         --project ${id}_chimeraTE \
+         --project ${output}/${id}_chimeraTE \
          --te ${repeatlib} \
          --transcripts ${output}/trans_renamed/${id}_renamed.fasta \
          --strand rf-stranded \
