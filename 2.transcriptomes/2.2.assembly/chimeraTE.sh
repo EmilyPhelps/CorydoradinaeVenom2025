@@ -70,7 +70,9 @@ id=$(echo $fq | awk -F"/" '{print $NF}')
 
 if [ ! -d ${output}/trans_renamed ]; then
    mkdir ${output}/trans_renamed
+fi
 
+if[ ! -f ${ouput}/trans_renamed/${id}_renamed.fasta ]; then
    awk 'BEGIN{FS=" "} 
    /^>/ {
      split($1, idparts, "_");
