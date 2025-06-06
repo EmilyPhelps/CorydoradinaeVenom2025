@@ -97,7 +97,7 @@ fi
 
 mkdir ${output}/${id}_chimeraTE 
 
-python3 ~/ChimeraTE/chimTE_mode2.py --input ${output}/${id}_fq.tsv \
+python3 chimTE_mode2.py --input ${output}/${id}_fq.tsv \
          --project ${id}_chimeraTE \
          --te ${repeatlib} \
          --transcripts ${output}/trans_renamed/${id}_renamed.fasta \
