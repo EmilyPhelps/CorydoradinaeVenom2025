@@ -19,3 +19,6 @@ cd /gpfs/home/chh20csu/CorydoradinaeVenom2025
     -r ~/scratch/Lin9_All_deepTEEDTA_v1.2_renamed.fasta \
     -o projects/chimeraTE_output \
     -c 30
+
+mv projects/chimeraTE_output ./
+
