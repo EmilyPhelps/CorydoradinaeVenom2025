@@ -86,8 +86,8 @@ fi
 if [ ! -f ${output}/${id}_fq.tsv ]; then
    dir=$(echo ${fq} | sed "s/${id}//g")
 
-   mapfile -t f1 < <(find "${dir}" -name "${id}*_1.fastq.gz" | sort)
-   mapfile -t f2 < <(find "${dir}" -name "${id}*_2.fastq.gz" | sort)
+   mapfile -t f1 < <(find "${dir}" -name "${id}*_1.fastq" | sort)
+   mapfile -t f2 < <(find "${dir}" -name "${id}*_2.fastq" | sort)
    
    for ((i=0; i<${#f1[@]}; i++)); do
      rep_num=$((i+1))
