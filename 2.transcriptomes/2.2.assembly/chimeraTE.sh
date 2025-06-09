@@ -78,7 +78,7 @@ if [ ! -f ${ouput}/trans_renamed/${id}_renamed.fasta ]; then
      split($1, idparts, "_");
      gene = "TRINITY." idparts[2] "." idparts[3] "." idparts[4];
      iso = gene "." idparts[5];
-     print ">" gene "_" iso;
+     print ">" iso "_" gene;
      next
    }
    {print}' ${trans} > ${output}/trans_renamed/${id}_renamed.fasta
