@@ -105,5 +105,6 @@ python3 chimTE_mode2.py --input ${output}/${id}_fq.tsv \
          --transcripts ${output}/trans_renamed/${id}_renamed.fasta \
          --strand rf-stranded \
          --threads 30
+         --ram 14
 
 
