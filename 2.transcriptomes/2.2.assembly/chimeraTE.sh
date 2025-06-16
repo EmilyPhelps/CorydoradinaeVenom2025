@@ -17,6 +17,7 @@ Help()
    echo "r     The repeat library"
    echo "o     output directory"
    echo "c     cpus/threads"
+   echo "m     memory"
    echo ""
    echo ""
 }
@@ -24,7 +25,7 @@ Help()
 
 # Add options in by adding another letter eg. :x, and then include a letter) and some commands.
 # Semi colon placement mega important if you want to include your own input value.
-while getopts ":hf:t:r:o:c:" option; do
+while getopts ":hf:t:r:o:c:m:" option; do
    case ${option} in
       h) # display Help
          Help
@@ -34,6 +35,7 @@ while getopts ":hf:t:r:o:c:" option; do
        r) repeatlib=${OPTARG};;
        o) output=${OPTARG};;
        c) cpus=${OPTARG};;
+       m) mem=${OPTARG};;
       \?) # incorrect option
          echo "Error: Invalid option щ(ಥДಥщ)"
          exit;;
@@ -104,7 +106,7 @@ python3 chimTE_mode2.py --input ${output}/${id}_fq.tsv \
          --te ${repeatlib} \
          --transcripts ${output}/trans_renamed/${id}_renamed.fasta \
          --strand rf-stranded \
-         --threads 30
-         --ram 14
+         --threads ${cpus} \
+         --ram ${mem}
 
 
