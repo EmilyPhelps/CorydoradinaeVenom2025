@@ -20,7 +20,7 @@ cd /gpfs/home/chh20csu/ChimeraTE
     -t ~/scratch/transcriptomes/SIM/Trinity.fasta  \
     -r ~/scratch/Lin1C115wtgdb_EDTADeepTE_cleanLib_V1.1_renamed.fasta \
     -o /gpfs/home/chh20csu/CorydoradinaeVenom2025/chimeraTE_input \
-    -c 22
+    -c 22 -m 80
 
 
 
