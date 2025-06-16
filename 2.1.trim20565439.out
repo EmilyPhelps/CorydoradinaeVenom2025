@@ -1,0 +1,12 @@
+This is cutadapt 2.10 with Python 3.7.3
+Command line parameters: -q 20 -a AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT -A GATCGGAAGAGCACACGTCTGAACTCCAGTCACGGATGACTATCTCGTATGCCGTCTTCTGCTTG --pair-adapters -o ARC4_trimmed_1.fastq -p ARC4_trimmed_2.fastq /gpfs/home/chh20csu/scratch/ARC_NARC/ARC4/concat_raw/ARC4_concat_1.fq.gz /gpfs/home/chh20csu/scratch/ARC_NARC/ARC4/concat_raw/ARC4_concat_2.fq.gz
+This is cutadapt 2.10 with Python 3.7.3
+Command line parameters: -q 20 -a AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT -A GATCGGAAGAGCACACGTCTGAACTCCAGTCACGGATGACTATCTCGTATGCCGTCTTCTGCTTG --pair-adapters -o ARC5_trimmed_1.fastq -p ARC5_trimmed_2.fastq /gpfs/home/chh20csu/scratch/ARC_NARC/ARC5/concat_raw/ARC5_concat_1.fq.gz /gpfs/home/chh20csu/scratch/ARC_NARC/ARC5/concat_raw/ARC5_concat_2.fq.gz
+This is cutadapt 2.10 with Python 3.7.3
+Command line parameters: -q 20 -a AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT -A GATCGGAAGAGCACACGTCTGAACTCCAGTCACGGATGACTATCTCGTATGCCGTCTTCTGCTTG --pair-adapters -o NARC3_trimmed_1.fastq -p NARC3_trimmed_2.fastq /gpfs/home/chh20csu/scratch/ARC_NARC/NARC3/concat_raw/NARC3_concat_1.fq.gz /gpfs/home/chh20csu/scratch/ARC_NARC/NARC3/concat_raw/NARC3_concat_2.fq.gz
+This is cutadapt 2.10 with Python 3.7.3
+Command line parameters: -q 20 -a AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT -A GATCGGAAGAGCACACGTCTGAACTCCAGTCACGGATGACTATCTCGTATGCCGTCTTCTGCTTG --pair-adapters -o ARC2_trimmed_1.fastq -p ARC2_trimmed_2.fastq /gpfs/home/chh20csu/scratch/ARC_NARC/ARC2/concat_raw/ARC2_concat_1.fq.gz /gpfs/home/chh20csu/scratch/ARC_NARC/ARC2/concat_raw/ARC2_concat_2.fq.gz
+This is cutadapt 2.10 with Python 3.7.3
+Command line parameters: -q 20 -a AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT -A GATCGGAAGAGCACACGTCTGAACTCCAGTCACGGATGACTATCTCGTATGCCGTCTTCTGCTTG --pair-adapters -o ARC3_trimmed_1.fastq -p ARC3_trimmed_2.fastq /gpfs/home/chh20csu/scratch/ARC_NARC/ARC3/concat_raw/ARC3_concat_1.fq.gz /gpfs/home/chh20csu/scratch/ARC_NARC/ARC3/concat_raw/ARC3_concat_2.fq.gz
+This is cutadapt 2.10 with Python 3.7.3
+Command line parameters: -q 20 -a AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT -A GATCGGAAGAGCACACGTCTGAACTCCAGTCACGGATGACTATCTCGTATGCCGTCTTCTGCTTG --pair-adapters -o NARC1_trimmed_1.fastq -p NARC1_trimmed_2.fastq /gpfs/home/chh20csu/scratch/ARC_NARC/NARC1/concat_raw/NARC1_concat_1.fq.gz /gpfs/home/chh20csu/scratch/ARC_NARC/NARC1/concat_raw/NARC1_concat_2.fq.gz

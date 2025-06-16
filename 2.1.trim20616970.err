@@ -1,0 +1,48 @@
+ls: cannot access /gpfs/home/chh20csu/scratch/ARC_NAR/ARC4/ARC4*_1.fq.gz: No such file or directory
+mkdir: cannot create directory ‘/gpfs/home/chh20csu/scratch/ARC_NAR/ARC4/concat_raw/’: No such file or directory
+./2.transcriptomes/2.1.pre_processing/2.1.2.trimming.sh: line 100: /gpfs/home/chh20csu/scratch/ARC_NAR/ARC4/concat_raw/ARC4_concat_1.fq.gz: No such file or directory
+./2.transcriptomes/2.1.pre_processing/2.1.2.trimming.sh: line 101: /gpfs/home/chh20csu/scratch/ARC_NAR/ARC4/concat_raw/ARC4_concat_2.fq.gz: No such file or directory
+Run "cutadapt --help" to see command-line options.
+See https://cutadapt.readthedocs.io/ for full documentation.
+
+cutadapt: error: [Errno 2] No such file or directory: '/gpfs/home/chh20csu/scratch/ARC_NAR/ARC4/concat_raw/ARC4_concat_1.fq.gz'
+ls: cannot access /gpfs/home/chh20csu/scratch/ARC_NAR/ARC5/ARC5*_1.fq.gz: No such file or directory
+mkdir: cannot create directory ‘/gpfs/home/chh20csu/scratch/ARC_NAR/ARC5/concat_raw/’: No such file or directory
+./2.transcriptomes/2.1.pre_processing/2.1.2.trimming.sh: line 100: /gpfs/home/chh20csu/scratch/ARC_NAR/ARC5/concat_raw/ARC5_concat_1.fq.gz: No such file or directory
+./2.transcriptomes/2.1.pre_processing/2.1.2.trimming.sh: line 101: /gpfs/home/chh20csu/scratch/ARC_NAR/ARC5/concat_raw/ARC5_concat_2.fq.gz: No such file or directory
+Run "cutadapt --help" to see command-line options.
+See https://cutadapt.readthedocs.io/ for full documentation.
+
+cutadapt: error: [Errno 2] No such file or directory: '/gpfs/home/chh20csu/scratch/ARC_NAR/ARC5/concat_raw/ARC5_concat_1.fq.gz'
+ls: cannot access /gpfs/home/chh20csu/scratch/ARC_NAR/NAR3/NAR3*_1.fq.gz: No such file or directory
+mkdir: cannot create directory ‘/gpfs/home/chh20csu/scratch/ARC_NAR/NAR3/concat_raw/’: No such file or directory
+./2.transcriptomes/2.1.pre_processing/2.1.2.trimming.sh: line 100: /gpfs/home/chh20csu/scratch/ARC_NAR/NAR3/concat_raw/NAR3_concat_1.fq.gz: No such file or directory
+./2.transcriptomes/2.1.pre_processing/2.1.2.trimming.sh: line 101: /gpfs/home/chh20csu/scratch/ARC_NAR/NAR3/concat_raw/NAR3_concat_2.fq.gz: No such file or directory
+Run "cutadapt --help" to see command-line options.
+See https://cutadapt.readthedocs.io/ for full documentation.
+
+cutadapt: error: [Errno 2] No such file or directory: '/gpfs/home/chh20csu/scratch/ARC_NAR/NAR3/concat_raw/NAR3_concat_1.fq.gz'
+ls: cannot access /gpfs/home/chh20csu/scratch/ARC_NAR/ARC2/ARC2*_1.fq.gz: No such file or directory
+mkdir: cannot create directory ‘/gpfs/home/chh20csu/scratch/ARC_NAR/ARC2/concat_raw/’: No such file or directory
+./2.transcriptomes/2.1.pre_processing/2.1.2.trimming.sh: line 100: /gpfs/home/chh20csu/scratch/ARC_NAR/ARC2/concat_raw/ARC2_concat_1.fq.gz: No such file or directory
+./2.transcriptomes/2.1.pre_processing/2.1.2.trimming.sh: line 101: /gpfs/home/chh20csu/scratch/ARC_NAR/ARC2/concat_raw/ARC2_concat_2.fq.gz: No such file or directory
+Run "cutadapt --help" to see command-line options.
+See https://cutadapt.readthedocs.io/ for full documentation.
+
+cutadapt: error: [Errno 2] No such file or directory: '/gpfs/home/chh20csu/scratch/ARC_NAR/ARC2/concat_raw/ARC2_concat_1.fq.gz'
+ls: cannot access /gpfs/home/chh20csu/scratch/ARC_NAR/ARC3/ARC3*_1.fq.gz: No such file or directory
+mkdir: cannot create directory ‘/gpfs/home/chh20csu/scratch/ARC_NAR/ARC3/concat_raw/’: No such file or directory
+./2.transcriptomes/2.1.pre_processing/2.1.2.trimming.sh: line 100: /gpfs/home/chh20csu/scratch/ARC_NAR/ARC3/concat_raw/ARC3_concat_1.fq.gz: No such file or directory
+./2.transcriptomes/2.1.pre_processing/2.1.2.trimming.sh: line 101: /gpfs/home/chh20csu/scratch/ARC_NAR/ARC3/concat_raw/ARC3_concat_2.fq.gz: No such file or directory
+Run "cutadapt --help" to see command-line options.
+See https://cutadapt.readthedocs.io/ for full documentation.
+
+cutadapt: error: [Errno 2] No such file or directory: '/gpfs/home/chh20csu/scratch/ARC_NAR/ARC3/concat_raw/ARC3_concat_1.fq.gz'
+ls: cannot access /gpfs/home/chh20csu/scratch/ARC_NAR/NAR1/NAR1*_1.fq.gz: No such file or directory
+mkdir: cannot create directory ‘/gpfs/home/chh20csu/scratch/ARC_NAR/NAR1/concat_raw/’: No such file or directory
+./2.transcriptomes/2.1.pre_processing/2.1.2.trimming.sh: line 100: /gpfs/home/chh20csu/scratch/ARC_NAR/NAR1/concat_raw/NAR1_concat_1.fq.gz: No such file or directory
+./2.transcriptomes/2.1.pre_processing/2.1.2.trimming.sh: line 101: /gpfs/home/chh20csu/scratch/ARC_NAR/NAR1/concat_raw/NAR1_concat_2.fq.gz: No such file or directory
+Run "cutadapt --help" to see command-line options.
+See https://cutadapt.readthedocs.io/ for full documentation.
+
+cutadapt: error: [Errno 2] No such file or directory: '/gpfs/home/chh20csu/scratch/ARC_NAR/NAR1/concat_raw/NAR1_concat_1.fq.gz'
