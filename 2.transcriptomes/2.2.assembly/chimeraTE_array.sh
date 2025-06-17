@@ -108,7 +108,7 @@ fi
 mkdir ${output}/${id}_chimeraTE 
 
 python3 chimTE_mode2.py --input ${output}/${id}_fq.tsv \
-         --project ${id}_chimeraTE \
+         --project ${id}_${trans_name} \
          --te ${repeatlib} \
          --transcripts ${ouput}/trans_renamed/${id}/${trans_name}_renamed.fasta \
          --strand rf-stranded \
