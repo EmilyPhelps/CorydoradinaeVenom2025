@@ -13,9 +13,10 @@ Help()
    echo options
    echo "h     Print this Help."
    echo "f     Path to raw/ cleaned fq files with prefix"
-   echo "t     The transcriptome"
+   echo "n     sample name e.g. TUK, SIM, "
    echo "r     The repeat library"
    echo "o     output directory"
+   echo "t     transcriptome"
    echo "c     cpus/threads"
    echo "m     memory"
    echo ""
@@ -25,12 +26,13 @@ Help()
 
 # Add options in by adding another letter eg. :x, and then include a letter) and some commands.
 # Semi colon placement mega important if you want to include your own input value.
-while getopts ":hf:t:r:o:c:m:" option; do
+while getopts ":hf:t:r:o:c:m:n:" option; do
    case ${option} in
       h) # display Help
          Help
          exit;;
        f) fq=${OPTARG};;
+       n) id=${OPTARG};;
        t) trans=${OPTARG};;
        r) repeatlib=${OPTARG};;
        o) output=${OPTARG};;
@@ -66,15 +68,19 @@ if [ ! -d ${output} ]; then
    mkdir ${output}
 fi
 
-id=$(echo $fq | awk -F"/" '{print $NF}')
 #Going to edit the transcriptomes so they are appropriate for chimeraTE. 
 #If the output dir exists then skips
 
 if [ ! -d ${output}/trans_renamed ]; then
    mkdir ${output}/trans_renamed
+   if [ ! -d ${output}/trans_renamed/${id} ]; then
+   mkdir ${output}/trans_renamed/${id}
+   fi
 fi
 
-if [ ! -f ${ouput}/trans_renamed/${id}_renamed.fasta ]; then
+trans_name=$(echo ${trans} | awk -F"/" '{print $NF}')
+
+if [ ! -f ${ouput}/trans_renamed/${id}/${trans_name}_renamed.fasta ]; then
    awk 'BEGIN{FS=" "} 
    /^>/ {
      split($1, idparts, "_");
@@ -83,7 +89,7 @@ if [ ! -f ${ouput}/trans_renamed/${id}_renamed.fasta ]; then
      print ">" iso "_" gene;
      next
    }
-   {print}' ${trans} > ${output}/trans_renamed/${id}_renamed.fasta
+   {print}' ${trans} > ${output}/trans_renamed/${trans_name}_renamed.fasta 
 fi
 
 
@@ -104,7 +110,7 @@ mkdir ${output}/${id}_chimeraTE
 python3 chimTE_mode2.py --input ${output}/${id}_fq.tsv \
          --project ${id}_chimeraTE \
          --te ${repeatlib} \
-         --transcripts ${output}/trans_renamed/${id}_renamed.fasta \
+         --transcripts ${ouput}/trans_renamed/${id}/${trans_name}_renamed.fasta \
          --strand rf-stranded \
          --threads ${cpus} \
          --ram ${mem}
