@@ -17,17 +17,17 @@ PATH=~/miniconda3/bin/:$PATH
 source activate chimeraTE
 #Need to make the below chunks of a transcriptome to run on. Think about the naming and reformatting of each bit
 #Need to include full paths here for the lists
-fasta_list=(chunks/*.fasta)
+fasta_list=(/gpfs/home/chh20csu/CorydoradinaeVenom2025/dmel-sampled_transcripts.fa.split/*fa)
 
 # Get the file for this array task
-chunk_fasta="${FILES[$SLURM_ARRAY_TASK_ID]}"
+chunk_fasta="${fasta_list[$SLURM_ARRAY_TASK_ID]}"
 
 cd /gpfs/home/chh20csu/ChimeraTE
-
-/gpfs/home/chh20csu/CorydoradinaeVenom2025/2.transcriptomes/2.2.assembly/chimeraTE_array.sh -f ~/scratch/trimmed/SIM \
-    -t ~/scratch/transcriptomes/SIM/Trinity.fasta  \
-    -r ~/scratch/Lin1C115wtgdb_EDTADeepTE_cleanLib_V1.1_renamed.fasta \
+echo -e $chunk_fasta
+/gpfs/home/chh20csu/CorydoradinaeVenom2025/2.transcriptomes/2.2.assembly/chimeraTE_array.sh -f ~/ChimeraTE/example_data/mode2/sample \
+    -t  $chunk_fasta \
+    -r  ~/ChimeraTE/example_data/mode2/dmel-sampled_transcripts.fa \
     -o /gpfs/home/chh20csu/CorydoradinaeVenom2025/chimeraTE_input \
-    -c 22 -m 80
+    -c 10 -m 80
 
 
