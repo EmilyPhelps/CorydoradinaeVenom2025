@@ -1,0 +1,27 @@
+#!/bin/bash
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=chh20csu@uea.ac.uk
+#SBATCH -t 7-00:00:00
+#SBATCH --mem=80G
+#SBATCH -p compute-24-96
+#SBATCH --ntasks=1
+#SBATCH --nodes=1
+#SBATCH --array=0-9     
+#SBATCH --cpus-per-task=10
+#SBATCH --job-name=chimerae_array #Change Job Name
+#SBATCH -o chimera_%A_%a.out
+#SBATCH -e chimera_%A_%a.err
+
+#location
+PATH=~/miniconda3/bin/:$PATH
+source activate chimeraTE
+#Need to make the below chunks of a transcriptome to run on. Think about the naming and reformatting of each bit
+
+cd /gpfs/home/chh20csu/ChimeraTE
+/gpfs/home/chh20csu/CorydoradinaeVenom2025/2.transcriptomes/2.2.assembly/chimeraTE.sh -f ~/scratch/trimmed/SIM \
+    -t ~/scratch/transcriptomes/SIM/Trinity.fasta  \
+    -r ~/scratch/Lin1C115wtgdb_EDTADeepTE_cleanLib_V1.1_renamed.fasta \
+    -o /gpfs/home/chh20csu/CorydoradinaeVenom2025/chimeraTE_input \
+    -c 22 -m 80
+
+
