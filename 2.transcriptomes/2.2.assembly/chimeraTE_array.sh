@@ -12,7 +12,7 @@ Help()
    echo 
    echo options
    echo "h     Print this Help."
-   echo "f     Path to raw/ cleaned fq files with prefix"
+   echo "f     path to fq files"
    echo "n     sample name e.g. TUK, SIM, "
    echo "r     The repeat library"
    echo "o     output directory"
@@ -94,10 +94,9 @@ fi
 
 
 if [ ! -f ${output}/${id}_fq.tsv ]; then
-   dir=$(echo ${fq} | sed "s/${id}//g")
 
-   mapfile -t f1 < <(find "${dir}" -name "${id}*_1.fastq*" | sort)
-   mapfile -t f2 < <(find "${dir}" -name "${id}*_2.fastq*" | sort)
+   mapfile -t f1 < <(find "${fq}" -name "${id}*_1.fastq*" | sort)
+   mapfile -t f2 < <(find "${fq}" -name "${id}*_2.fastq*" | sort)
    
    for ((i=0; i<${#f1[@]}; i++)); do
      rep_num=$((i+1))
