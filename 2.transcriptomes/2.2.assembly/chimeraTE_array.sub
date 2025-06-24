@@ -2,7 +2,7 @@
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=chh20csu@uea.ac.uk
 #SBATCH -t 7-00:00:00
-#SBATCH --mem=80G
+#SBATCH --mem=10G
 #SBATCH -p compute-24-96
 #SBATCH --ntasks=1
 #SBATCH --nodes=1
@@ -29,6 +29,6 @@ echo -e $chunk_fasta
     -t  $chunk_fasta \
     -r  ~/ChimeraTE/example_data/mode2/dmel-sampled_transcripts.fa \
     -o /gpfs/home/chh20csu/CorydoradinaeVenom2025/chimeraTE_input \
-    -c 10 -m 80
+    -c 10 -m 10
 
 
