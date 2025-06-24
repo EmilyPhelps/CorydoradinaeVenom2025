@@ -6,7 +6,7 @@
 #SBATCH -p compute-24-96
 #SBATCH --ntasks=1
 #SBATCH --nodes=1
-#SBATCH --array=0-9     
+#SBATCH --array=0-6    
 #SBATCH --cpus-per-task=10
 #SBATCH --job-name=chimerae_array #Change Job Name
 #SBATCH -o chimera_%A_%a.out
@@ -24,7 +24,8 @@ chunk_fasta="${fasta_list[$SLURM_ARRAY_TASK_ID]}"
 
 cd /gpfs/home/chh20csu/ChimeraTE
 echo -e $chunk_fasta
-/gpfs/home/chh20csu/CorydoradinaeVenom2025/2.transcriptomes/2.2.assembly/chimeraTE_array.sh -f ~/ChimeraTE/example_data/mode2/sample \
+/gpfs/home/chh20csu/CorydoradinaeVenom2025/2.transcriptomes/2.2.assembly/chimeraTE_array.sh -f ~/ChimeraTE/example_data/mode2/ \
+    -n sample \
     -t  $chunk_fasta \
     -r  ~/ChimeraTE/example_data/mode2/dmel-sampled_transcripts.fa \
     -o /gpfs/home/chh20csu/CorydoradinaeVenom2025/chimeraTE_input \
