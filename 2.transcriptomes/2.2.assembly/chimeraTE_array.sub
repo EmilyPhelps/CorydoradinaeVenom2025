@@ -12,6 +12,7 @@
 #SBATCH -o chimera_%A_%a.out
 #SBATCH -e chimera_%A_%a.err
 
+# Need to ammend to run properly to feed into ChimeraTE not writing tsv and giving current chunk name
 #location
 PATH=~/miniconda3/bin/:$PATH
 source activate chimeraTE
