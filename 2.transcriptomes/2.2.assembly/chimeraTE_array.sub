@@ -6,7 +6,7 @@
 #SBATCH -p compute-24-96
 #SBATCH --ntasks=1
 #SBATCH --nodes=1
-#SBATCH --array=0-9     
+#SBATCH --array=0-6     
 #SBATCH --cpus-per-task=10
 #SBATCH --job-name=chimerae_array #Change Job Name
 #SBATCH -o chimera_%A_%a.out
