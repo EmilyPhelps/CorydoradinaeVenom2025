@@ -25,9 +25,10 @@ chunk_fasta="${fasta_list[$SLURM_ARRAY_TASK_ID]}"
 
 cd /gpfs/home/chh20csu/ChimeraTE
 echo -e $chunk_fasta
+id=$(echo $chunk_fasta | awk -F"/" '{print $NF}')
 /gpfs/home/chh20csu/CorydoradinaeVenom2025/2.transcriptomes/2.2.assembly/chimeraTE_array.sh -f ~/ChimeraTE/example_data/mode2/ \
-    -n sample \
-    -t  $chunk_fasta \
+    -n ${id::-3} \
+    -t  ${chunk_fasta} \
     -r  ~/ChimeraTE/example_data/mode2/dmel-sampled_transcripts.fa \
     -o /gpfs/home/chh20csu/CorydoradinaeVenom2025/chimeraTE_input \
     -c 10 -m 10
