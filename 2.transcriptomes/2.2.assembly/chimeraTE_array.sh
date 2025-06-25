@@ -80,18 +80,19 @@ fi
 
 trans_name=$(echo ${trans} | awk -F"/" '{print $NF}')
 
-if [ ! -f ${ouput}/trans_renamed/${id}/${trans_name}_renamed.fasta ]; then
-   awk 'BEGIN{FS=" "} 
-   /^>/ {
-     split($1, idparts, "_");
-     gene = "TRINITY." idparts[2] "." idparts[3] "." idparts[4];
-     iso = gene "." idparts[5];
-     print ">" iso "_" gene;
-     next
-   }
-   {print}' ${trans} > ${output}/trans_renamed/${trans_name}_renamed.fasta 
-fi
+#if [ ! -f ${ouput}/trans_renamed/${id}/${trans_name}_renamed.fasta ]; then
+#   awk 'BEGIN{FS=" "} 
+#   /^>/ {
+#     split($1, idparts, "_");
+#     gene = "TRINITY." idparts[2] "." idparts[3] "." idparts[4];
+#     iso = gene "." idparts[5];
+#     print ">" iso "_" gene;
+#     next
+#   }
+#   {print}' ${trans} > ${output}/trans_renamed/${trans_name}_renamed.fasta 
+#fi
 
+cat ${trans} > ${output}/trans_renamed/${trans_name}_renamed.fasta 
 
 if [ ! -f ${output}/${id}_fq.tsv ]; then
 
