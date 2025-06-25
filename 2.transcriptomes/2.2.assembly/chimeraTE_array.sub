@@ -2,32 +2,26 @@
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=chh20csu@uea.ac.uk
 #SBATCH -t 7-00:00:00
-#SBATCH --mem=80G
-#SBATCH -p compute-24-96
+#SBATCH --mem=200G
+#SBATCH -p compute-64-512
 #SBATCH --ntasks=1
 #SBATCH --nodes=1
-#SBATCH --array=0-6     
-#SBATCH --cpus-per-task=10
-#SBATCH --job-name=chimerae_array #Change Job Name
-#SBATCH -o chimera_%A_%a.out
-#SBATCH -e chimera_%A_%a.err
+#SBATCH --cpus-per-task=30
+#SBATCH --job-name=2.2.assemble%j #Change Job Name
+#SBATCH -o 2.2.assemble%j.out
+#SBATCH -e 2.2.assemble%j.err
 
 #location
-PATH=~/miniconda3/bin/:$PATH
-source activate chimeraTE
-#Need to make the below chunks of a transcriptome to run on. Think about the naming and reformatting of each bit
-#Need to include full paths here for the lists
-fasta_list=(/gpfs/home/chh20csu/CorydoradinaeVenom2025/dmel-sampled_transcripts.fa.split/*fa)
 
-# Get the file for this array task
-chunk_fasta="${fasta_list[$SLURM_ARRAY_TASK_ID]}"
+cd /gpfs/home/chh20csu/CorydoradinaeVenom2025
 
-cd /gpfs/home/chh20csu/ChimeraTE
-echo -e $chunk_fasta
-/gpfs/home/chh20csu/CorydoradinaeVenom2025/2.transcriptomes/2.2.assembly/chimeraTE_array.sh -f ~/ChimeraTE/example_data/mode2/sample \
-    -t  $chunk_fasta \
-    -r  ~/ChimeraTE/example_data/mode2/dmel-sampled_transcripts.fa \
-    -o /gpfs/home/chh20csu/CorydoradinaeVenom2025/chimeraTE_input \
-    -c 10 -m 80
+#load modules and add to path
 
+#program
+LIST=lists/assembly.list
+OUTDIR=./assembly
+DIR=./trimmed/trimmed/
+MEM=200
+CPU=30
 
+./2.transcriptomes/2.2.assembly/2.2.assemble_master.sh -s ${LIST} -o ${OUTDIR} -d ${DIR} -m ${MEM} -t ${CPU}
