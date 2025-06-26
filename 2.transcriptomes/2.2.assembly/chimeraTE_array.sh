@@ -73,9 +73,6 @@ fi
 
 if [ ! -d ${output}/trans_renamed ]; then
    mkdir ${output}/trans_renamed
-   if [ ! -d ${output}/trans_renamed/${id} ]; then
-   mkdir ${output}/trans_renamed/${id}
-   fi
 fi
 
 trans_name=$(echo ${trans} | awk -F"/" '{print $NF}')
@@ -108,7 +105,7 @@ fi
 python3 chimTE_mode2.py --input ${output}/${id}_fq.tsv \
          --project ${id}_${trans_name} \
          --te ${repeatlib} \
-         --transcripts ${ouput}/trans_renamed/${id}/${trans_name}_renamed.fasta \
+         --transcripts ${ouput}/trans_renamed/${trans_name}_renamed.fasta \
          --strand rf-stranded \
          --threads ${cpus} \
          --ram ${mem}
