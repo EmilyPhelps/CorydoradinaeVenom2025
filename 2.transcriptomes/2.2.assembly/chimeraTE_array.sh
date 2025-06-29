@@ -90,6 +90,7 @@ trans_name=$(echo ${trans} | awk -F"/" '{print $NF}')
 #fi
 
 cat ${trans} > ${output}/trans_renamed/${trans_name}_renamed.fasta 
+chmod 775 ${output}/trans_renamed/${trans_name}_renamed.fasta 
 
 if [ ! -f ${output}/${id}_${trans_name}_fq.tsv ]; then
 
