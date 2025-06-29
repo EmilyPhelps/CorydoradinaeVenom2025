@@ -2,3 +2,7 @@
 ./data/*
 ./lists/
 ./output
+./output_trimmed/
+./assembly/
+./*.err
+./*.out
