@@ -103,12 +103,11 @@ if [ ! -f ${output}/${id}_${trans_name}_fq.tsv ]; then
    done
 fi
 
-ls ${ouput}/trans_renamed/${trans_name}_renamed.fasta 
 
 python3 chimTE_mode2.py --input ${output}/${id}_fq.tsv \
          --project ${id}_${trans_name} \
          --te ${repeatlib} \
-         --transcripts ${ouput}/trans_renamed/${trans_name}_renamed.fasta \
+         --transcripts ${output}/trans_renamed/${trans_name}_renamed.fasta \
          --strand rf-stranded \
          --threads ${cpus} \
          --ram ${mem}
