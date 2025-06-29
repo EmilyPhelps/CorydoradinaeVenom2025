@@ -16,6 +16,7 @@
 #location
 PATH=~/miniconda3/bin/:$PATH
 source activate chimeraTE
+
 #Need to make the below chunks of a transcriptome to run on. Think about the naming and reformatting of each bit
 #Need to include full paths here for the lists
 fasta_list=(/gpfs/home/chh20csu/CorydoradinaeVenom2025/dmel-sampled_transcripts.fa.split/*fa)
