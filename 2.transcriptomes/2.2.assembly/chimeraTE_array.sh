@@ -111,7 +111,7 @@ if [ ! -f ${output}/${id}_${trans_name}_fq.tsv ]; then
 fi
 
 
-python3 chimTE_mode2.py --input ${output}/${id}_fq.tsv \
+python3 chimTE_mode2.py --input ${output}/${id}_${trans_name}_fq.tsv\
          --project ${id}_${trans_name} \
          --te ${repeatlib} \
          --transcripts ${output}/trans_renamed/${trans_name}_renamed.fasta \
