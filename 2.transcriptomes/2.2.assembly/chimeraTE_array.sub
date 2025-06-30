@@ -6,7 +6,7 @@
 #SBATCH -p compute-24-96
 #SBATCH --ntasks=1
 #SBATCH --nodes=1
-#SBATCH --array=0-6    
+#SBATCH --array=0    
 #SBATCH --cpus-per-task=10
 #SBATCH --job-name=chimerae_array #Change Job Name
 #SBATCH -o chimera_%A_%a.out
@@ -19,8 +19,8 @@ source activate chimeraTE
 
 #Need to make the below chunks of a transcriptome to run on. Think about the naming and reformatting of each bit
 #Need to include full paths here for the lists
-fasta_list=(/gpfs/home/chh20csu/CorydoradinaeVenom2025/dmel-sampled_transcripts.fa.split/*fa)
-
+#fasta_list=(/gpfs/home/chh20csu/CorydoradinaeVenom2025/dmel-sampled_transcripts.fa.split/*fa)
+fasta_list=(~/ChimeraTE/example_data/mode2/*transcripts.fa)
 # Get the file for this array task
 chunk_fasta="${fasta_list[$SLURM_ARRAY_TASK_ID]}"
 
