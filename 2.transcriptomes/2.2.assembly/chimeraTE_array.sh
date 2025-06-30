@@ -77,19 +77,26 @@ fi
 
 trans_name=$(echo ${trans} | awk -F"/" '{print $NF}')
 
-#if [ ! -f ${ouput}/trans_renamed/${id}/${trans_name}_renamed.fasta ]; then
-#   awk 'BEGIN{FS=" "} 
-#   /^>/ {
-#     split($1, idparts, "_");
-#     gene = "TRINITY." idparts[2] "." idparts[3] "." idparts[4];
-#     iso = gene "." idparts[5];
-#     print ">" iso "_" gene;
-#     next
-#   }
-#   {print}' ${trans} > ${output}/trans_renamed/${trans_name}_renamed.fasta 
-#fi
+if [ ! -f "${output}/${id}_${trans_name}_fq.tsv" ]; then
 
-cat ${trans} > ${output}/trans_renamed/${trans_name}_renamed.fasta 
+   mapfile -t f1 < <(find "${fq}" \( -name "${id}*1.fq" -o -name "${id}*1.fq.gz" -o -name "${id}*1.fastq" -o -name "${id}*1.fastq.gz" \) | sort)
+   mapfile -t f2 < <(find "${fq}" \( -name "${id}*2.fq" -o -name "${id}*2.fq.gz" -o -name "${id}*2.fastq" -o -name "${id}*2.fastq.gz" \) | sort)
+
+   total_files=${#f1[@]}
+
+   # Determine number of files to sample (all if less than 5, else 5)
+   sample_count=$(( total_files < 5 ? total_files : 5 ))
+
+   # Get random indices or all if fewer than 5
+   mapfile -t random_indices < <(shuf -i 0-$((total_files - 1)) -n "$sample_count")
+
+   rep_num=0
+   for idx in "${random_indices[@]}"; do
+     rep_num=$((rep_num + 1))
+     echo -e "${f1[idx]}\t${f2[idx]}\trep${rep_num}" >> "${output}/${id}_${trans_name}_fq.tsv"
+   done
+fi
+
 chmod 775 ${output}/trans_renamed/${trans_name}_renamed.fasta 
 
 if [ ! -f ${output}/${id}_${trans_name}_fq.tsv ]; then
