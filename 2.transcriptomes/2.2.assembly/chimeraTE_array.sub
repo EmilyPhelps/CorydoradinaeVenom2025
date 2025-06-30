@@ -31,7 +31,7 @@ echo -e $chunk_fasta
 /gpfs/home/chh20csu/CorydoradinaeVenom2025/2.transcriptomes/2.2.assembly/chimeraTE_array.sh -f ~/ChimeraTE/example_data/mode2/ \
     -n sample \
     -t  ${chunk_fasta} \
-    -r   \
+    -r  ~/scratch/Lin1C115wtgdb_EDTADeepTE_cleanLib_V1.1_renamed.fasta \
     -o /gpfs/home/chh20csu/CorydoradinaeVenom2025/chimeraTE_input \
     -c 10 -m 10
 
