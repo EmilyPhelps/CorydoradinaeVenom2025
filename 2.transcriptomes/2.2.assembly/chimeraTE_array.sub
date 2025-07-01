@@ -2,7 +2,7 @@
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=chh20csu@uea.ac.uk
 #SBATCH -t 7-00:00:00
-#SBATCH --mem=10G
+#SBATCH --mem=80G
 #SBATCH -p compute-24-96
 #SBATCH --ntasks=1
 #SBATCH --nodes=1 
@@ -32,6 +32,6 @@ echo -e $chunk_fasta
     -t  ${chunk_fasta} \
     -r  ~/scratch/Lin1C115wtgdb_EDTADeepTE_cleanLib_V1.1_renamed.fasta \
     -o /gpfs/home/chh20csu/CorydoradinaeVenom2025/chimeraTE_input \
-    -c 10 -m 10
+    -c 10 -m 80
 
 
