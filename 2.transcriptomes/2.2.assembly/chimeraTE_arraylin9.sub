@@ -3,8 +3,8 @@
 #SBATCH --mail-user=chh20csu@uea.ac.uk
 #SBATCH -t 7-00:00:00
 #SBATCH --mem=80G
-#SBATCH --array=0
-#SBATCH -p compute-64-512
+#SBATCH --array=0-2
+#SBATCH -p compute-24-96
 #SBATCH --ntasks=1
 #SBATCH --nodes=1 
 #SBATCH --cpus-per-task=10
@@ -20,7 +20,7 @@ source activate chimeraTE
 #Need to make the below chunks of a transcriptome to run on. Think about the naming and reformatting of each bit
 #Need to include full paths here for the lists
 
-idlist=(NAR)
+idlist=(MET TUK ARC)
 id=${idlist[$SLURM_ARRAY_TASK_ID]}
 
 echo "Running job for: $id"
@@ -30,7 +30,7 @@ cd /gpfs/home/chh20csu/ChimeraTE
 /gpfs/home/chh20csu/CorydoradinaeVenom2025/2.transcriptomes/2.2.assembly/chimeraTE_array.sh -f /gpfs/home/chh20csu/CorydoradinaeVenom2025/fastq_ln \
     -n ${id} \
     -t /gpfs/home/chh20csu/CorydoradinaeVenom2025/transcriptome_ln/${id}.fasta \
-    -r  ~/scratch/Lin1C115wtgdb_EDTADeepTE_cleanLib_V1.1_renamed.fasta \
+    -r  ~/scratch/Lin9_All_deepTEEDTA_v1.2_renamed.fasta \
     -o /gpfs/home/chh20csu/CorydoradinaeVenom2025/chimeraTE_input \
     -c 10 -m 80
 
