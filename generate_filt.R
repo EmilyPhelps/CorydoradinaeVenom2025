@@ -13,7 +13,8 @@ rep %>%
   pivot_longer(
     cols = starts_with("S"),
     names_to = "Scol",
-    values_to = "Transcripts"
+    values_to = "Transcripts",
+    values_drop_na = TRUE
   ) %>%
 mutate(Transcripts=gsub("\\.", "_", trimws(gsub("_.*", "", Transcripts)))) %>% 
-dplyr::select(Transcripts) %>% write_tsv(paste0(args[1], ".output.tsv")
+dplyr::select(Transcripts) %>% write_tsv(paste0(args[1], ".output.tsv"))
