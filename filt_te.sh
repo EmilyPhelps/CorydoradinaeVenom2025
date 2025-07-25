@@ -17,11 +17,13 @@ PATH=~/miniconda3/bin/:$PATH
 idlist=(SIM REY NAR)
 id=${idlist[$SLURM_ARRAY_TASK_ID]}
 
-rep_ln=
-trans_ln=
+rep_ln=/gpfs/home/chh20csu/CorydoradinaeVenom2025/rep_ln
+trans_ln=/gpfs/home/chh20csu/CorydoradinaeVenom2025/transcriptome_ln
 
 #Run R script to generate the filter file
-Rscript generate_filt.R ${rep_ln} ${trans_ln}
+reptsv=$(find "${rep_ln}" -name "${id}*" )
+trans=$(find "${trans_ln}" -name "${id}*" )
 
+Rscript generate_filt.R $reptsv $trans
 #Filter using seqkit
 seqkit 
