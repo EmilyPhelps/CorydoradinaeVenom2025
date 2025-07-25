@@ -17,3 +17,11 @@ PATH=~/miniconda3/bin/:$PATH
 idlist=(SIM REY NAR)
 id=${idlist[$SLURM_ARRAY_TASK_ID]}
 
+rep_ln=
+trans_ln=
+
+#Run R script to generate the filter file
+Rscript generate_filt.R ${rep_ln} ${trans_ln}
+
+#Filter using seqkit
+seqkit 
