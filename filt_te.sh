@@ -4,7 +4,7 @@
 #SBATCH -t 7-00:00:00
 #SBATCH --mem=80G
 #SBATCH -p compute
-#SBATCH --array=0-2
+#SBATCH --array=0
 #SBATCH --ntasks=1
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=1
@@ -24,6 +24,9 @@ trans_ln=/gpfs/home/chh20csu/CorydoradinaeVenom2025/transcriptome_ln
 reptsv=$(find "${rep_ln}" -name "${id}*" )
 trans=$(find "${trans_ln}" -name "${id}*" )
 
-Rscript generate_filt.R $reptsv $trans
+Rscript generate_filt.R $reptsv 
 #Filter using seqkit
-seqkit 
+awk '{print $1}' $trans > ${trans}_cleaned.fa
+
+seqkit grep -f ${reptsv}.output.tsv ${trans}_cleaned.fa -o ${trans}_tefilt.fasta
+
