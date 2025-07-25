@@ -16,4 +16,4 @@ rep %>%
     values_to = "Transcripts"
   ) %>%
 mutate(Transcripts=gsub("\\.", "_", trimws(gsub("_.*", "", Transcripts)))) %>% 
-dplyr::select(Transcripts) %>% write_tsv(paste0(args[1], "output.tsv")
+dplyr::select(Transcripts) %>% write_tsv(paste0(args[1], ".output.tsv")
