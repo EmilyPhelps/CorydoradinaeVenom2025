@@ -1,1 +1,34 @@
+#!/bin/bash
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=chh20csu@uea.ac.uk
+#SBATCH -t 7-00:00:00
+#SBATCH --mem=80G
+#SBATCH --array=0-2
+#SBATCH -p compute-24-96
+#SBATCH --ntasks=1
+#SBATCH --nodes=1 
+#SBATCH --cpus-per-task=10
+#SBATCH --job-name=chimerae_array #Change Job Name
+#SBATCH -o chimera_%A_%a.out
+#SBATCH -e chimera_%A_%a.err
 
+# Need to ammend to run properly to feed into ChimeraTE not writing tsv and giving current chunk name
+#location
+PATH=~/miniconda3/bin/:$PATH
+source activate chimeraTE
+
+trans=
+
+TELib=(~/scratch/Lin9_All_deepTEEDTA_v1.2_renamed.fasta.split/*)
+TESplit=${TELib[$SLURM_ARRAY_TASK_ID]}
+
+echo "Running job for: $TESplit"
+
+cd /gpfs/home/chh20csu/ChimeraTE
+
+/gpfs/home/chh20csu/CorydoradinaeVenom2025/2.transcriptomes/2.2.assembly/chimeraTE_array.sh -f /gpfs/home/chh20csu/CorydoradinaeVenom2025/fastq_ln \
+    -n  ${trans}_${SLURM_ARRAY_TASK_ID} \
+    -t ${trans} \
+    -r  ${TESplit} \
+    -o /gpfs/home/chh20csu/CorydoradinaeVenom2025/chimeraTE_input \
+    -c 10 -m 80
