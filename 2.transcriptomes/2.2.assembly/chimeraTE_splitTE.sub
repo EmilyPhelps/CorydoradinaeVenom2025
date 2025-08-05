@@ -27,8 +27,8 @@ echo "Running job for: $TESplit"
 cd /gpfs/home/chh20csu/ChimeraTE
 
 /gpfs/home/chh20csu/CorydoradinaeVenom2025/2.transcriptomes/2.2.assembly/chimeraTE_array.sh -f /gpfs/home/chh20csu/CorydoradinaeVenom2025/fastq_ln \
-    -n  ${trans}_${SLURM_ARRAY_TASK_ID} \
+    -n ${trans}_${SLURM_ARRAY_TASK_ID} \
     -t ${trans} \
-    -r  ${TESplit} \
+    -r ${TESplit} \
     -o /gpfs/home/chh20csu/CorydoradinaeVenom2025/chimeraTE_input \
     -c 10 -m 80
