@@ -111,9 +111,10 @@ if [ ! -f "${output}/${id}_${trans_name}_fq.tsv" ]; then
    done
 fi
 
+ts=$(date +%s)
 
 python3 chimTE_mode2.py --input ${output}/${id}_${trans_name}_fq.tsv\
-         --project ${id}_${trans_name} \
+         --project ${id}_${trans_name}_${ts} \
          --te ${repeatlib} \
          --transcripts ${output}/trans_renamed/${trans_name}_renamed.fasta \
          --strand rf-stranded \
