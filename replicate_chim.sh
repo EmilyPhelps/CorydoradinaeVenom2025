@@ -17,7 +17,7 @@ input = pd.read_csv("/gpfs/home/chh20csu/CorydoradinaeVenom2025/chimeraTE_input/
 replicate = 2
 coverage = 2
 tables = ["_chimreads_evidence.tsv"]
-l
+
 print(f"{clock}\tSearching for chimeric transcripts found in at least {replicate} replicates\n")
 
 for chim_type in tables:
