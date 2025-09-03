@@ -20,4 +20,4 @@ export TRINOTATE_DATA_DIR=/gpfs/home/chh20csu/trinotate_dir
 idlist=(SIM NAR REY TUK MET ARC)
 id=${idlist[$SLURM_ARRAY_TASK_ID]}
 
-TransDecoder.LongOrfs -m 10 -t filt_trans/${id}/${id}_tefilt.fasta  -O ${id}_transdecoder
+TransDecoder.LongOrfs -m 10 -t filt_trans/${id}/${id}*fasta  -O ${id}_transdecoder
