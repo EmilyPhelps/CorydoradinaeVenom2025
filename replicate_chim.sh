@@ -5,13 +5,13 @@ import re
 from io import StringIO
 import shutil
 
-tmp = "/gpfs/home/chh20csu/scratch/ChimeraTE_output/MET_tmp/tmp"
+tmp = "/gpfs/home/chh20csu/scratch/ChimeraTE_output/TUK_TUK.fasta/tmp"
 
 # Get current time string (replacing the time() function)
 x = datetime.datetime.now()
 clock = "[" + x.strftime("%A") + " " + str(x.day) + "/" + str(x.month) + "/" + str(x.year) + " - " + x.strftime("%H") + "h:" + x.strftime("%M") + "]"
 
-input = pd.read_csv("/gpfs/home/chh20csu/CorydoradinaeVenom2025/chimeraTE_input/MET_copies/MET_MET.fasta_fq.tsv.OG", 
+input = pd.read_csv("/gpfs/home/chh20csu/CorydoradinaeVenom2025/chimeraTE_input/TUK_TUK.fasta_fq.tsv", 
                        header=None, sep="\t", usecols=[0,1,2], names=['mate1', 'mate2', 'group'])
 
 replicate = 2
