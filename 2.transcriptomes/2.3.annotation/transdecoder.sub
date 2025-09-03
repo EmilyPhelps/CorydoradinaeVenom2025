@@ -1,0 +1,23 @@
+#!/bin/bash
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=chh20csu@uea.ac.uk
+#SBATCH -t 7-00:00:00
+#SBATCH --mem=80G
+#SBATCH --array=0
+#SBATCH -p compute-64-512
+#SBATCH --ntasks=1
+#SBATCH --nodes=1 
+#SBATCH --cpus-per-task=10
+#SBATCH --job-name=annotate_array #Change Job Name
+#SBATCH -o annotate_%A_%a.out
+#SBATCH -e annotate_%A_%a.err
+
+PATH=~/miniconda3/bin/:$PATH
+source activate trinotate
+PATH=~/Trinotate-Trinotate-v4.0.2/:$PATH
+export TRINOTATE_DATA_DIR=/gpfs/home/chh20csu/trinotate_dir
+
+idlist=(SIM NAR REY TUK MET ARC)
+id=${idlist[$SLURM_ARRAY_TASK_ID]}
+
+TransDecoder.LongOrfs -m 10 -t filt_trans/${id}/{id}_tefilt.fasta  -O ${id}_transdecoder
