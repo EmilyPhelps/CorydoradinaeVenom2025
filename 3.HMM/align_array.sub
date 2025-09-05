@@ -14,9 +14,14 @@
 
 module load clustal-omega/1.2.4
 
-filelist=(ls seq_ln/)
-file=${filelist[$SLURM_ARRAY_TASK_id]}
+# Create an array of FASTA files in seq_ln directory
+filelist=(seq_ln/*.fasta)
 
-#program
+# Get the current file for this array task
+file=${filelist[$SLURM_ARRAY_TASK_ID]}
+
+# Extract base name (remove path and extension)
 base=$(basename "$file" .fasta)
-clustalo -i seq_ln/${file} --threads=10 > cluster_alignments/${base}.fas
+
+# Run Clustal Omega alignment
+clustalo -i "$file" --threads=10 -o "cluster_alignments/${base}.fas"
