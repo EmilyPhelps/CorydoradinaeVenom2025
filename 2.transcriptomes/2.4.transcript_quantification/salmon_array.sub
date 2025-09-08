@@ -1,15 +1,20 @@
-#!/bin/bash
+##!/bin/bash
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=chh20csu@uea.ac.uk
 #SBATCH -t 7-00:00:00
-#SBATCH --mem=200G
+#SBATCH --mem=80G
+#SBATCH --array=0-3
 #SBATCH -p compute-64-512
 #SBATCH --ntasks=1
-#SBATCH --nodes=1
+#SBATCH --nodes=1 
 #SBATCH --cpus-per-task=30
-#SBATCH --job-name=1.4.quantSIMtiss%j #Change Job Name
-#SBATCH -o 1.4.quantSIMtiss%j.out
-#SBATCH -e 1.4.quant%SIMtissj.err
+#SBATCH --job-name=salmon #Change Job Name
+#SBATCH -o salmon_%A_%a.out
+#SBATCH -e salmon_%A_%a.err
 
+idlist=(ARC MET REY TUK)
 
-2.transcriptomes/2.4.transcript_quantification/1.4.transcript_quantification.sh -s salmon_input/SIM_fq.tsv -t filt_trans/SIM -c 30
+id=${idlist[$SLURM_ARRAY_TASK_ID]}
+
+./2.transcriptomes/2.4.transcript_quantification/1.4.transcript_quantification.sh -s salmon_input/${id}_fq.tsv -t filt_trans/${id} -c 30
+
