@@ -9,3 +9,11 @@ mapfile -t f2 < <(find "${dir}" -name "${id}*_2.fastq*" | sort)
 for ((i=0; i<${#f1[@]}; i++)); do
   echo -e "${f1[i]}\t${f2[i]}\t" >> ${output}/${id}_fq.tsv
 done
+
+
+mapfile -t f1 < <(find "${dir}" -name "*A*_1.fastq*" | sort)
+mapfile -t f2 < <(find "${dir}" -name "*A*_2.fastq*" | sort)
+
+for ((i=0; i<${#f1[@]}; i++)); do
+  echo -e "${f1[i]}\t${f2[i]}\t" >> lin_fq.tsv
+done
