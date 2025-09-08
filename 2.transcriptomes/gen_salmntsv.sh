@@ -1,6 +1,6 @@
 #Quick code to create the files for inputting to salmon in trinity
 dir=~/scratch/trimmed #path with the trimmed fq files
-id=ARC # the prefix, e.g. SIM NAR TUK
+id=NAR # the prefix, e.g. SIM NAR TUK
 output=./
    
 mapfile -t f1 < <(find "${dir}" -name "${id}*_1.fastq*" | sort)
