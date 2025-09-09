@@ -17,8 +17,6 @@ PATH=/gpfs/software/ada/trinity/2.11.0/util/misc/:$PATH
 
 idlist=(SIM REY NAR MET TUK ARC)
 id=${idlist[$SLURM_ARRAY_TASK_ID]}
-for i in ARC MET NAR REY SIM TUK; do 
- cd ~/Venom_Evolution_2024/transcriptomes/longest_iso/${i}/
- get_longest_isoform_seq_per_trinity_gene.pl Trinity.fasta > ${i}_longest_isoform.fasta
-done
+
+get_longest_isoform_seq_per_trinity_gene.pl filt_trans/${id}/${id}*tefilt.fasta > ${id}_longest_isoform.fasta
 
