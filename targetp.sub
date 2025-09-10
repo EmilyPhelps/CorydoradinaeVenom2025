@@ -1,0 +1,21 @@
+##!/bin/bash
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=chh20csu@uea.ac.uk
+#SBATCH -t 7-00:00:00
+#SBATCH --mem=400G
+#SBATCH --array=0-99
+#SBATCH -p compute-64-512
+#SBATCH --ntasks=1
+#SBATCH --nodes=1 
+#SBATCH --cpus-per-task=1
+#SBATCH --job-name=target #Change Job Name
+#SBATCH -o target_%A_%a.out
+#SBATCH -e target_%A_%a.err
+
+peplist=(/gpfs/home/chh20csu/CorydoradinaeVenom2025/SIM_sig_pep.fa.split/*)
+pep=${peplist[$SLURM_ARRAY_TASK_ID]}
+PATH=~/miniconda3/bin/:$PATH
+
+~/targetp-2.0/bin/targetp -fasta ${pep} -prefix targetp2_out/${pep::-3}
+
+
