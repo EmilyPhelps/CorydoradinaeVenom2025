@@ -18,4 +18,4 @@ PATH=~/miniconda3/bin/:$PATH
 
 source activate prot_location
 
-signalp6 --fastafile ${pep} -org eukarya -od signal_output/
+signalp6 --fastafile ${pep} -org eukarya -prefix ${pep::-3} -od signal_output/
