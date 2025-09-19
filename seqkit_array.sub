@@ -1,0 +1,24 @@
+#!/bin/bash
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=chh20csu@uea.ac.uk
+#SBATCH -t 7-00:00:00
+#SBATCH --mem=80G
+#SBATCH --array=0
+#SBATCH -p compute-64-512
+#SBATCH --ntasks=1
+#SBATCH --nodes=1 
+#SBATCH --cpus-per-task=1
+#SBATCH --job-name=seqkit #Change Job Name
+#SBATCH -o seqkit_%A_%a.out
+#SBATCH -e seqkit_%A_%a.err
+
+PATH=~/miniconda3/bin/:$PATH
+
+idlist=(SIM REY NAR MET TUK ARC)
+id=${idlist[$SLURM_ARRAY_TASK_ID]}
+
+seqkit grep -f high_express/${id}_he_transcripts.tsv -r -n longest_pep_ln/${id}_longest_orfs.pep -o ${id}_he_pep.fa
+
+
+
+
